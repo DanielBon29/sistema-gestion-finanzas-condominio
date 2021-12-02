@@ -1,0 +1,66 @@
+<tbody>
+<%  let t_por_pagar = 0;    // Defining "total por pagar"
+
+    if(ingresos[0] == undefined){
+    } 
+    else {
+        let ingresos_validos = ingresos.filter(item => item.estado == "Válido");
+        let vecinos_validos = vecinos.filter(item => item.letra != "S/N");
+        let vecinos_est = vecinos_validos.filter(item => item.estacionamiento == "Sí");
+
+        let new_cuota_array;    // Defining array that will change depending of "concepto" selected
+
+        if(ingresos[0].concepto == 'Mantenimiento Mensual') {
+            vecinos_visibles = vecinos_validos;
+
+            // Function will show just necessary fields
+            function selectProps(show) {
+                const {periodo, cuotamantenimiento} = show;
+                return {periodo, cuotamantenimiento};
+            };
+
+            // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
+            new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotamantenimiento});
+        } else{
+            vecinos_visibles = vecinos_est;
+
+            // Function will show just necessary fields
+            function selectProps(show) {
+                const {periodo, cuotaestacionamiento} = show;
+                return {periodo, cuotaestacionamiento};
+            };
+
+            // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
+            new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotaestacionamiento});
+        };
+
+        for(let i=0; i < vecinos_visibles.length; i++) {
+            let pagado = 0;
+            let por_pagar = 0;%>
+        <tr>
+            <td id='letra'><%=vecinos_visibles[i].letra%></td>
+
+            <%for(let j=0; j < 12; j++) {
+                let ingreso_filtrado = ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == j+1 && item.vecino.substring(7,8) == vecinos_visibles[i].letra)[0];
+                let monto_pagado = ingreso_filtrado==undefined? 0: ingreso_filtrado.monto;
+                pagado = pagado + monto_pagado;
+                por_pagar = por_pagar + new_cuota_array[j];
+            %>
+            <td id=<%=monto_pagado>=new_cuota_array[j]? 'mes_pagado':'mes_no_pagado'%> >
+                <%=monto_pagado%>
+            </td>
+            <% } %>
+            <td class="pagado"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(pagado)%></td>
+            <td class="por_pagar"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(por_pagar - pagado)%></td>
+        </tr>
+    <%    t_por_pagar = t_por_pagar + por_pagar - pagado;
+        }
+    }; %>
+    <tr><td></td></tr>
+</tbody>
+<tfoot>
+    <tr>
+        <td class="pagado" colspan = 14>Total por pagar</td>
+        <td class="por_pagar"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(t_por_pagar)%></td>
+    </tr>
+</tfoot>

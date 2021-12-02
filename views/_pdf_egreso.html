@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condominio Application</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+
+        *{
+            padding:0;
+            box-sizing: border-box;
+        }
+
+        h1,h2,h3,h4,p{
+            font-family: 'Verdana', sans-serif;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            margin: auto;
+            border: solid 3px #000000;
+            border-radius: 2em;
+        }
+
+        #c_header,
+        #c_title,
+        #c_body,
+        #c_sign{
+            max-width: 100%;
+            margin: 1em 2em;
+        }
+
+        #c_header{
+            text-align: center;
+            border-bottom: solid 1px #000000;
+        }
+
+        #c_header h1, 
+        #c_header h4,
+        #c_title h2, 
+        #c_sign h4,
+        #c_sign p{
+            margin: 0;
+        }
+
+        #c_sign h4,
+        #c_sign p{
+            margin-left: 5%;
+            margin-right: 5%;
+        }
+
+        #c_sign em{
+            text-decoration: overline;
+            font-style: normal;
+        }
+
+        #c_title em{
+            color: #e92424;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <div id="c_header">
+            <h1>Junta de Propietarios del Predio Multifamiliar</h1>
+            <h4>Calle Enrique Palacios 635 - Miraflores</h4>          
+        </div>
+        <div id="c_title">
+            <h2>Comprobante de Pago a Proveedor &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <em>Nro. {{egreso.documento}} &nbsp; {{egreso.estado}}</em>
+            </h2>    
+            <br>
+        </div>
+        <div id="c_body">
+            <p>Se emite el presente documento en función de comprobante de pago al proveedor <strong>{{egreso.proveedor}}</strong> por un importe 
+                de <strong>S/ {{egreso.monto}}</strong> gestionado en el periodo <strong>{{egreso.periodo}}</strong>.</p>
+            <p>Se describe el detalle del gasto en mención:</p>
+            <p><strong>{{egreso.detalle}}</strong></p>
+            <br>
+            <p>Adjunto documento emitido por el proveedor: N° <strong>{{egreso.nrcomprobante}}</strong></p>
+            <p>Centro de Costo Asignado: <strong>{{egreso.centrocosto}}</strong></p>
+            <p>Modalidad de Pago: <strong>{{egreso.cuenta}}</strong></p>
+            <br>
+            <br>
+            <p>Miraflores, {{egreso.fecharegistro}}</p>
+        </div>
+        <div id="c_sign">
+            <br>
+            <br>
+            <h4><em>{{junta.tesoreria}}</em></h4>
+            <p>Junta Directiva - Tesorería&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <em>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Proveedor&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</em></p>
+        </div>          
+    </div>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<% for(let i=0; i < users.length; i++) {%>
+<tr>
+    <td><%=users[i].letra%></td>
+    <td><%=users[i].vecino%></td>
+    <td><%=users[i].celular%></td>
+    <td><%=users[i].email1%></td>
+    <td><%=users[i].email2%></td>
+    <td>
+        <a href="/nuestros-vecinos-modificar?id=<%=users[i]._id%>" class="btn border-shadow update">
+            <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+        </a>
+    </td>
+</tr>
+<% } %>

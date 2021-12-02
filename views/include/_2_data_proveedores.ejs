@@ -1,0 +1,18 @@
+<%  for(let i=0; i < proveedores.length; i++) {%>
+    <tr>
+        <td><%=proveedores[i].centrocosto%></td>
+        <td><%=proveedores[i].proveedor%></td>
+        <td><%=proveedores[i].documento%></td>
+        <td><%=proveedores[i].direccion%></td>
+        <td><%=proveedores[i].celular%></td>
+        <td><%=proveedores[i].email%></td>
+        <td>
+            <a href="/nuestros-proveedores-modificar?id=<%=proveedores[i]._id%>" class="btn border-shadow update">
+                <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <a class="btn border-shadow delete" data-id=<%=proveedores[i]._id%>>
+                <span class="text-delete"><i class="fas fa-times"></i></span>
+            </a>                                
+        </td>
+    </tr>
+    <% } %>

@@ -1,0 +1,21 @@
+<%  juntas.sort((a,b) => {
+        return -a.año + b.año
+    }); // data sorting by "año" desc
+    
+    for(let i=0; i < juntas.length; i++) {%>
+<tr>
+    <td><%=juntas[i].año%></td>
+    <td><%=juntas[i].presidencia%></td>
+    <td><%=juntas[i].tesoreria%></td>
+    <td><%=juntas[i].secretaria%></td>
+    <td><%=juntas[i].administracion%></td>
+    <td>
+        <a href="/junta-directiva-modificar?id=<%=juntas[i]._id%>" class="btn border-shadow update">
+            <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+        </a>
+        <a class="btn border-shadow delete" data-id=<%=juntas[i]._id%>>
+            <span class="text-delete"><i class="fas fa-times"></i></span>
+        </a>                                
+    </td>
+</tr>
+<% } %>

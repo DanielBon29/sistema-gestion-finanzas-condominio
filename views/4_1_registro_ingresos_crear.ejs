@@ -1,0 +1,114 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Registro de Ingresos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/registro-ingresos"><i class="fas fa-angle-double-left"></i> Ingresos</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Nuevo ingreso</h2>
+            </div>
+                <!-- form-handling -->
+                <form action="/api/ingreso" method='POST' id="add_ingreso" onsubmit="return isValidForm()">
+                    <div class="form_body">
+                        <div class="form-group">
+                            <label for="documento" class="text-light">Documento</label>
+                            <input type="hidden" name="id" value="">
+                            <input type="text" name="documento" value="" placeholder="Este campo se autocompleta" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecharegistro" class="text-light">Fecha de Registro</label>
+                            <input type="text" name="fecharegistro" value="" placeholder="Seleccione Fecha (obligatorio)" required readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="nroperacion" class="text-light">#Operación Bancaria</label>
+                            <input type="text" name="nroperacion" value="" placeholder="Número de operación si es transferencia bancaria">
+                        </div>
+                        <div class="form-group">
+                            <label for="cuenta" class="text-light">Cuenta</label>
+                            <select id="combo_cuentas" name="cuenta" required>
+                                <option selected="true" disabled="disabled"></option>
+                                <option>Caja Chica / Efectivo</option>
+                                <option>Cuenta BCP / Yape</option>
+                                <option>Cuenta BBVA / Plin</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="vecino" class="text-light">Vecino</label>
+                            <select id="combo_vecinos" name="vecino" required>
+                                <option selected="true" disabled="disabled"></option>
+                            <% for(let i=0; i < vecinos.length; i++) {%>
+                                <option>Letra "<%=vecinos[i].letra%>" - <%=vecinos[i].vecino%></option>
+                            <% } %>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="concepto" class="text-light">Concepto</label>
+                            <select id="combo_conceptos" name="concepto" required>
+                                <option selected="true" disabled="disabled"></option>
+                                <option>Mantenimiento Mensual</option>
+                                <option>Estacionamiento Mensual</option>
+                                <option>Pago Extraordinario</option>
+                                <option>Mantenimiento Conciliado</option>
+                                <option>Estacionamiento Conciliado</option>
+                                <option>Venta Extraordinaria</option>
+                                <option>Saldo Junta Anterior</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="periodo" class="text-light">Periodo</label>
+                            <input type="month" name="periodo" value="" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="monto" class="text-light">Monto (S/)</label>
+                            <input type="number" min="0.01" step="0.01" name="monto" value="" placeholder="Ingrese Monto (obligatorio)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="detalle" class="text-light">Detalle (máx. 80 caracteres)</label>
+                            <input type="text" maxlength="80" name="detalle" value="" placeholder="Ingrese Detalle">
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="text-light">Estado</label>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-2" name="estado" value="Válido" checked>
+                                <label for="radio-2" class="radio-label">Válido</label>
+                            </div>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-3" name="estado" value="Anulado">
+                                <label for="radio-3" class="radio-label">Anulado</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn text-dark update">Crear</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </main>
+   <!-- Main Site -->
+   
+    <script src="/js/4_registro_ingresos.js"></script>
+
+<!-- include footer -->
+<%- include('include/_8_footer') %>
+<!-- include footer -->

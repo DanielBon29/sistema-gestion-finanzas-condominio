@@ -1,0 +1,70 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Nuestros Vecinos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/nuestros-vecinos"><i class="fas fa-angle-double-left"></i> Vecinos</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Modificar datos - <%=user.letra=='S/N'?'Junta Directiva':'Letra "' + user.letra + '"'%></h2>
+            </div>
+            <!-- form-handling -->
+            <form method='POST' id="update_vecino">
+                <div class="form_body">
+                    <div class="form-group">
+                        <label for="vecino" class="text-light">Vecino</label>
+                        <input type="hidden" name="id" value="<%=user._id%>">
+                        <input type="text" name="vecino" value="<%=user.vecino%>" placeholder="Ej: Familia González (obligatorio)" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="celular" class="text-light">#Celular</label>
+                        <input type="text" name="celular" value="<%=user.celular%>" placeholder="Ej: 999999999">
+                    </div>
+                    <div class="form-group">
+                        <label for="email1" class="text-light">@Email 1</label>
+                        <input type="text" name="email1" value="<%=user.email1%>" placeholder="Ej: ejemplo@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="email2" class="text-light">@Email 2</label>
+                        <input type="text" name="email2" value="<%=user.email2%>" placeholder="Ej: ejemplo@gmail.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="estacionamiento" class="text-light">¿Paga estacionamiento?</label>
+                        <select name="estacionamiento" id="combo_estacionamiento">
+                            <option <%=user.estacionamiento=="Sí"? 'selected':''%>>Sí</option>
+                            <option <%=user.estacionamiento=="No"? 'selected':''%>>No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn text-dark update">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+
+    <script src="/js/1_nuestros_vecinos.js"></script>
+<!-- include footer -->
+<%- include('include/_8_footer') %>
+<!-- include footer -->

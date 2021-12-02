@@ -1,0 +1,95 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Registro de Egresos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/registro-egresos"><i class="fas fa-angle-double-left"></i> Egresos</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Modificar registro "<%=egreso.documento%>"</h2>
+            </div>
+            <!-- form-handling -->
+            <form action="/api/egreso" method='POST' id="update_egreso">
+                <div class="form_body">
+                    <div class="form-group">
+                        <label for="documento" class="text-light">Documento</label>
+                        <input type="hidden" name="id" value="<%=egreso._id%>">
+                        <input type="text" name="documento" value="<%=egreso.documento%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecharegistro" class="text-light">Fecha de Registro</label>
+                        <input type="text" name="fecharegistro" value="<%=egreso.fecharegistro%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nrcomprobante" class="text-light">#Comprobante de Gasto</label>
+                        <input type="text" name="nrcomprobante" value="<%=egreso.nrcomprobante%>" placeholder="Número de comprobante emitido por proveedor">
+                    </div>
+                    <div class="form-group">
+                        <label for="centrocosto" class="text-light">Centro de Costo</label>
+                        <input type="text" name="centrocosto" value="<%=egreso.centrocosto%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="proveedor" class="text-light">Proveedor</label>
+                        <input type="text" name="proveedor" value="<%=egreso.proveedor%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="monto" class="text-light">Monto (S/)</label>
+                        <input type="number" min="0.01" step="0.01" name="monto" value="<%=egreso.monto%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="cuenta" class="text-light">Cuenta</label>
+                        <input type="text" name="cuenta" value="<%=egreso.cuenta%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="periodo" class="text-light">Periodo</label>
+                        <input type="text" name="periodo" value="<%=egreso.periodo%>" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="detalle" class="text-light">Detalle (máx. 150 caracteres)</label>
+                        <input type="text" maxlength="150" name="detalle" value="<%=egreso.detalle%>" placeholder="Ingrese Detalle" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="estado" class="text-light">Estado</label>
+                        <div class="radio inline">
+                            <input type="radio" id="radio-2" name="estado" value="Válido" <%=egreso.estado=='Válido'?'checked':''%>>
+                            <label for="radio-2" class="radio-label">Válido</label>
+                        </div>
+                        <div class="radio inline">
+                            <input type="radio" id="radio-3" name="estado" value="Anulado" <%=egreso.estado=='Anulado'?'checked':''%>>
+                            <label for="radio-3" class="radio-label">Anulado</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn text-dark update">Guardar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+    
+    <script src="/js/5_registro_egresos.js"></script>
+    
+<!-- include footer -->
+<%- include('include/_8_footer') %>
+<!-- include footer -->

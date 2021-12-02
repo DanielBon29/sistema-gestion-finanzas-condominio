@@ -1,0 +1,114 @@
+<%  let ingresos_validos = ingresos.filter(item => item.estado == "Válido");
+    let egresos_validos = egresos.filter(item => item.estado == "Válido");
+
+    let ingresos_validos_sin_saldoant = ingresos_validos.filter(item => item.concepto != "Saldo Junta Anterior");
+    let array_saldo_junta_anterior = ingresos_validos.filter(item => item.concepto == "Saldo Junta Anterior");
+    let saldo_junta_anterior = array_saldo_junta_anterior.reduce((accum,item) => accum + item.monto,0);
+
+    const CONCEPTOS = ['Mantenimiento Mensual', 
+                     'Estacionamiento Mensual', 
+                     'Pago Extraordinario', 
+                     'Mantenimiento Conciliado', 
+                     'Estacionamiento Conciliado', 
+                     'Venta Extraordinaria'];
+    
+    let centrocostos = [...new Set(cc.map(item => item.centrocosto))];
+
+    const CUENTAS = ['Caja Chica / Efectivo', 
+                   'Cuenta BBVA / Plin', 
+                   'Cuenta BCP / Yape'];
+    
+    // Defining new arrays
+    let saldo_anterior = new Array();
+    let total_ingresos = new Array();
+    let total_egresos = new Array();
+    let saldo_final = new Array();
+    
+    saldo_anterior.push(saldo_junta_anterior);
+
+    for(let j=0; j < 12; j++) {
+        let in_filt_mes = ingresos_validos_sin_saldoant.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1);
+        let eg_filt_mes = egresos_validos.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1);
+
+        let s_anterior_mes = saldo_anterior[j];
+        let suma_monto_in = in_filt_mes.reduce((accum,item) => accum + item.monto,0);
+        let suma_monto_eg = eg_filt_mes.reduce((accum,item) => accum + item.monto,0) * -1;
+        let s_final_mes = s_anterior_mes + suma_monto_in + suma_monto_eg;
+
+        j<11? saldo_anterior.push(s_final_mes) : saldo_anterior;
+        total_ingresos.push(suma_monto_in);
+        total_egresos.push(suma_monto_eg);
+        saldo_final.push(s_final_mes);
+    };
+%>
+        <tr id='s_anterior'>
+            <td class='col1'>Saldo Anterior</td>
+            <% for(let j=0; j < 12; j++) {
+                let valor = saldo_anterior[j];%>
+                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+            <% } %>
+        </tr>
+        <tr><td></td></tr>
+    <% for(let i=0; i < CONCEPTOS.length; i++) {%>
+        <tr>
+            <td class='col1'id='ingreso'><%=CONCEPTOS[i]%></td>  
+            <% for(let j=0; j < 12; j++) {
+                let in_filt_mes_concep = ingresos_validos_sin_saldoant.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.concepto == CONCEPTOS[i]);
+                let suma_monto = in_filt_mes_concep.reduce((accum,item) => accum + item.monto,0);%> 
+            <td id='ingreso'><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <% } %>
+        </tr>
+    <% } %>
+        <tr id='t_ingresos'>
+            <td class='col1'>Total Ingresos</td>  
+            <% for(let j=0; j < 12; j++) {
+                let valor = total_ingresos[j];%>
+                <td><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+            <% } %>
+        </tr>
+        <tr><td></td></tr>
+    <% for(let i=0; i < centrocostos.length; i++) {%>
+        <tr>
+            <td class='col1' id='egreso'><%=centrocostos[i]%></td>  
+            <% for(let j=0; j < 12; j++) {
+                let eg_filt_mes_cc= egresos_validos.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.centrocosto == centrocostos[i]);
+                let suma_monto = eg_filt_mes_cc.reduce((accum,item) => accum + item.monto,0) * -1;%> 
+            <td id='egreso'><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <% } %>
+        </tr>
+    <% } %>
+        <tr id='t_egresos'>
+            <td class='col1'>Total Egresos</td>  
+            <% for(let j=0; j < 12; j++) {
+                let valor = total_egresos[j];%>
+                <td><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+            <% } %>
+        </tr>
+        <tr><td></td></tr>
+        <tr id='s_final'>
+            <td class='col1'>Saldo Final</td>  
+            <% for(let j=0; j < 12; j++) {
+                let valor = saldo_final[j];%>
+                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+            <% } %>
+        </tr>
+    <% for(let i=0; i < CUENTAS.length; i++) { 
+        let junta_anterior = array_saldo_junta_anterior.filter(item => item.cuenta == CUENTAS[i]);
+        let valor_junta_anterior = junta_anterior.reduce((accum,item) => accum + item.monto,0);
+        let suma_monto = valor_junta_anterior;%>
+        <tr>
+            <td class='col1' id='cuenta'><%=CUENTAS[i]%></td>  
+            <% for(let j=0; j < 12; j++) {
+                let in_filt_mes_cuenta = ingresos_validos_sin_saldoant.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.cuenta == CUENTAS[i]);
+                let eg_filt_mes_cuenta= egresos_validos.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.cuenta == CUENTAS[i]);
+
+                let suma_monto_in = in_filt_mes_cuenta.reduce((accum,item) => accum + item.monto,0);
+                let suma_monto_eg = eg_filt_mes_cuenta.reduce((accum,item) => accum + item.monto,0) * -1;
+                suma_monto = suma_monto + suma_monto_in + suma_monto_eg;%>
+            <td id=<%=Math.sign(suma_monto)==-1? 'saldo_negativo' : 'saldo_positivo'%>><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <% } %>
+        </tr>
+    <% } %>
+
+
+        

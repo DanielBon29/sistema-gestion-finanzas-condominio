@@ -1,0 +1,37 @@
+<%  // This function choose fields will be showed
+    function selectProps(show) {
+        const {vecino, montoprestado, montocobrado} = show;
+        return {vecino, montoprestado, montocobrado};
+    };
+
+    // Function is applied to original array "prestamos", creating new array
+    let reduced_array = prestamos.map(selectProps);
+    let holder = {};                                //Temporal object
+
+    // New array is mapped to summarized data in temporal object, grouping by "vecino"
+    reduced_array.forEach((d) => {
+        if (holder.hasOwnProperty(d.vecino)) {
+            holder[d.vecino] = holder[d.vecino] + d.montoprestado - d.montocobrado;
+        } else {
+            holder[d.vecino] = d.montoprestado - d.montocobrado;
+        }
+    });
+
+    let summarized_array = [];                      // Other array defined
+
+    // Temporal object is looped, pushing it data in summarized array
+    for (let prop in holder) {
+        summarized_array.push({vecino: prop, deuda: holder[prop]});
+    };
+
+    // Let's filter summarized array, showing just "vecinos" with "deuda"
+    let filtered = summarized_array.filter(item => item.deuda > 0);
+
+    filtered.sort((a,b) => (a.deuda > b.deuda) ? -1 : ((b.deuda > a.deuda) ? 1 : 0)); // data sorting by deuda desc
+
+    for(let i=0; i < filtered.length; i++) { %>
+    <tr>
+        <td><%=filtered[i].vecino%></td>
+        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(filtered[i].deuda)%></td>
+    </tr>
+<%  }; %>

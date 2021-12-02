@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Condominio Application</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+
+        *{
+            padding:0;
+            box-sizing: border-box;
+        }
+
+        h1,h2,h3,h4,p{
+            font-family: 'Verdana', sans-serif;
+        }
+
+        .container{
+            display: flex;
+            flex-direction: column;
+            max-width: 80%;
+            margin: auto;
+            border: solid 3px #000000;
+            border-radius: 2em;
+        }
+
+        #c_header,
+        #c_title,
+        #c_body,
+        #c_sign{
+            max-width: 100%;
+            margin: 1em 2em;
+        }
+
+        #c_header{
+            text-align: center;
+            border-bottom: solid 1px #000000;
+        }
+
+        #c_header h1, 
+        #c_header h4,
+        #c_title h2, 
+        #c_sign h3,
+        #c_sign p{
+            margin: 0;
+        }
+
+        #c_sign h3,
+        #c_sign p{
+            text-align: center;
+        }
+
+        #c_sign h3{
+            text-decoration: underline;
+        }
+
+        em{
+            color: #e92424;
+            font-style: normal;
+        }
+    </style>
+</head>
+<body>
+    <div class="container"> 
+        <div id="c_header">
+            <h1>Junta de Propietarios del Predio Multifamiliar</h1>
+            <h4>Calle Enrique Palacios 635 - Miraflores</h4>          
+        </div>
+        <div id="c_title">
+            <h2>Comprobante de Pago &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <em>Nro. {{ingreso.documento}} &nbsp; {{ingreso.estado}}</em></h2>
+            <br>
+        </div>
+        <div id="c_body">
+            <p>Recibí del chalet <strong>{{ingreso.vecino}}</strong>, la cantidad de <strong>S/ {{ingreso.monto}}</strong></p>
+            <br>
+            <p>Por concepto de: <strong>{{ingreso.concepto}} del Periodo {{ingreso.periodo}}</strong></p>
+            <p>Detalle del pago: <strong>{{ingreso.detalle}}</strong></p>
+            <br>
+            <br>
+            <p>Miraflores, {{ingreso.fecharegistro}}</p>
+        </div>
+        <div id="c_sign">
+            <h3>{{junta.tesoreria}}</h3>
+            <p>Junta Directiva - Tesorería</p>
+        </div>          
+    </div>
+</body>
+</html>
