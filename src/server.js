@@ -51,7 +51,6 @@ app.use(function(req, res, next){
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/home`);
-    console.log(__dirname);
 });
 
 
