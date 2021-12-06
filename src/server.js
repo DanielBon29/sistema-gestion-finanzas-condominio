@@ -9,7 +9,8 @@ const connectDB = require('./server/database/connection');
 const app = express();
 
 dotenv.config({path:'config.env'});
-const PORT = process.env.PORT || 8080;
+// const PORT = process.env.PORT || 8080;
+const PORT = 3000;
 
 //log requests
 app.use(morgan('tiny'));
@@ -50,6 +51,7 @@ app.use(function(req, res, next){
 
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/home`);
+    console.log(__dirname);
 });
 
 
