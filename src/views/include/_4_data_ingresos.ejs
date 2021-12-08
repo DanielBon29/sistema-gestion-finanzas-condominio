@@ -6,7 +6,7 @@
         let mes_registro = parseInt(ingresos[i].fecharegistro.substring(3,5));
         let extrae_letra = ingresos[i].vecino.substring(8,9) == "/"? ingresos[i].vecino.substring(7,10) : ingresos[i].vecino.substring(7,8);
 
-        const path_root = `./src/docs/Ingresos/${ingresos[i].periodo.substring(0,4)}/${ingresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${ingresos[i].concepto}/`;
+        const path_root = `./docs/Ingresos/${ingresos[i].periodo.substring(0,4)}/${ingresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${ingresos[i].concepto}/`;
         // const path_root = `./docs/Ingresos/${ingresos[i].periodo.substring(0,4)}/${ingresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${ingresos[i].concepto}/`;
         const filename = `Chalet_${extrae_letra.replace("/","")}_${ingresos[i].concepto}_${ingresos[i].periodo.substring(0,4)}_${ingresos[i].periodo.substring(5,7)}_N${ingresos[i].documento.substring(1,8)}.pdf`;
         const filepath = path_root + filename;
