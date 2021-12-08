@@ -49,7 +49,7 @@ $("input[name=fecharegistro]").datepicker({
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2);
 
-        fetch('http://localhost:3000/api/ingreso')
+        fetch('/api/ingreso')
         .then(response => response.json())
         .then(data => {
             let contador = data.filter(item => item.fecharegistro.slice(-2) == año_reg).length;
