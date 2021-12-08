@@ -3,7 +3,7 @@ module.exports = {
     orientation: 'Landscape',
     border: '2mm',
     header: {
-        height: '30mm'
+        height: '20mm'
     },
     footer: {
         height: '10mm'
