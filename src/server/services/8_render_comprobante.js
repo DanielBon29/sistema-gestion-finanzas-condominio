@@ -52,7 +52,8 @@ exports.generateIngresoPdf = (req, res) => {
             email2: data_vecino.email2
         };
 
-        const path_root = `./docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
+        const origin_root = './src';
+        const path_root = `/docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
         const filename = `Chalet_${data_vecino.letra.replace("/","")}_${data_ingreso.concepto}_${data_ingreso.periodo.substring(0,4)}_${data_ingreso.periodo.substring(5,7)}_N${data_ingreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -61,7 +62,7 @@ exports.generateIngresoPdf = (req, res) => {
                 junta: data_j,
                 vecino: data_v
             },
-            path: path_root + filename
+            path: origin_root + path_root + filename
         };
 
         // console.log(document.data);
@@ -70,7 +71,7 @@ exports.generateIngresoPdf = (req, res) => {
         pdf.create(document, options_i)
             .then(res => {
                 // console.log(res);
-                const filepath = path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
+                const filepath = '.' + path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
 
                 _this.render('4_2_comprobante_ingreso_creado', {
                     path: filepath,
@@ -123,7 +124,8 @@ exports.generateEgresoPdf = (req, res) => {
             tesoreria: data_junta.tesoreria
         };
 
-        const path_root = `./docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
+        const origin_root = './src';
+        const path_root = `/docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
         const filename = `${data_egreso.proveedor.replace("/","-")}_${data_egreso.periodo.substring(0,4)}_${data_egreso.periodo.substring(5,7)}_N${data_egreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -131,13 +133,13 @@ exports.generateEgresoPdf = (req, res) => {
                 egreso: data_e,
                 junta: data_j
             },
-            path: path_root + filename
+            path: origin_root + path_root + filename
         };
 
         pdf.create(document, options_e)
             .then(res => {
                 // console.log(res);
-                const filepath = path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
+                const filepath = '.' + path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
 
                 _this.render('5_2_comprobante_egreso_creado', {
                     path: filepath
@@ -198,7 +200,8 @@ exports.modifyIngresoPdf = (req, res) => {
             email2: data_vecino.email2
         };
 
-        const path_root = `./docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
+        const origin_root = './src';
+        const path_root = `/docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
         const filename = `Chalet_${data_vecino.letra.replace("/","")}_${data_ingreso.concepto}_${data_ingreso.periodo.substring(0,4)}_${data_ingreso.periodo.substring(5,7)}_N${data_ingreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -207,13 +210,13 @@ exports.modifyIngresoPdf = (req, res) => {
                 junta: data_j,
                 vecino: data_v
             },
-            path: path_root + filename
+            path: origin_root + path_root + filename
         };
 
         pdf.create(document, options_i)
             .then(res => {
                 // console.log(res);
-                const filepath = path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
+                const filepath = '.' + path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
 
                 _this.render('4_4_comprobante_ingreso_modificado', {
                     path: filepath
@@ -265,7 +268,8 @@ exports.modifyEgresoPdf = (req, res) => {
             tesoreria: data_junta.tesoreria
         };
 
-        const path_root = `./docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
+        const origin_root = './src';
+        const path_root = `/docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
         const filename = `${data_egreso.proveedor.replace("/","-")}_${data_egreso.periodo.substring(0,4)}_${data_egreso.periodo.substring(5,7)}_N${data_egreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -273,13 +277,13 @@ exports.modifyEgresoPdf = (req, res) => {
                 egreso: data_e,
                 junta: data_j
             },
-            path: path_root + filename
+            path: origin_root + path_root + filename
         };
 
         pdf.create(document, options_e)
             .then(res => {
                 // console.log(res);
-                const filepath = path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
+                const filepath = '.' + path_root + filename; //ruta para redireccionar al PDF y verlo en el navegador
 
                 _this.render('5_4_comprobante_egreso_modificado', {
                     path: filepath
