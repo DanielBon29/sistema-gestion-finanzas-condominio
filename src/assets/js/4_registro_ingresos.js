@@ -47,6 +47,8 @@ $("input[name=fecharegistro]").datepicker({
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2);
 
+        console.log('HOLA')
+
         fetch('http://localhost:3000/api/ingreso')
         .then(response => response.json())
         .then(data => {
