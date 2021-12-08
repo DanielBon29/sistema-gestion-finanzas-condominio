@@ -3,7 +3,7 @@
 // Descargar Excel
 $("#excel_link").click( (x) => {
 
-    fetch('http://localhost:3000/api/ingreso')
+    fetch('/api/ingreso')
     .then(response => response.json())
     .then(data => {
         const headers = { documento: 'Documento', 
@@ -55,7 +55,6 @@ $("input[name=fecharegistro]").datepicker({
             let contador = data.filter(item => item.fecharegistro.slice(-2) == año_reg).length;
             let correlativo = (contador+1).toString().padStart(4,0);
             let doc = `I${año_reg}-${correlativo}`;
-            console.log(data);
 
             $("input[name=documento]").val(doc);
             $("h2").text(`Nuevo ingreso "${doc}"`);
@@ -83,7 +82,6 @@ function isValidForm() {
 
 $("#update_ingreso").submit(function(event){
     event.preventDefault();
-    console.log('holamundo');
     let unindexed_array=$(this).serializeArray();
     let data = {};
 
@@ -99,7 +97,7 @@ $("#update_ingreso").submit(function(event){
     //
 
     let request = {
-        "url": `http://localhost:3000/api/ingreso/${data.id}`,
+        "url": `/api/ingreso/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -119,7 +117,7 @@ if(window.location.pathname == "/registro-ingresos"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/ingreso/${id}`,
+            "url": `/api/ingreso/${id}`,
             "method": "DELETE"
         };
 
