@@ -5,7 +5,7 @@
         let mes_periodo = parseInt(egresos[i].periodo.substring(5,7));
         let mes_registro = parseInt(egresos[i].fecharegistro.substring(3,5));
 
-        const path_root = `./docs/Egresos/${egresos[i].periodo.substring(0,4)}/${egresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${egresos[i].centrocosto}/`;
+        const path_root = `./src/docs/Egresos/${egresos[i].periodo.substring(0,4)}/${egresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${egresos[i].centrocosto}/`;
         const filename = `${egresos[i].proveedor.replace("/","-")}_${egresos[i].periodo.substring(0,4)}_${egresos[i].periodo.substring(5,7)}_N${egresos[i].documento.substring(1,8)}.pdf`;
         const filepath = path_root + filename;
         %>

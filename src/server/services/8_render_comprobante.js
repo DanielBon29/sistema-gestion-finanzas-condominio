@@ -52,7 +52,7 @@ exports.generateIngresoPdf = (req, res) => {
             email2: data_vecino.email2
         };
 
-        const path_root = `./docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
+        const path_root = `./src/docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
         const filename = `Chalet_${data_vecino.letra.replace("/","")}_${data_ingreso.concepto}_${data_ingreso.periodo.substring(0,4)}_${data_ingreso.periodo.substring(5,7)}_N${data_ingreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -123,7 +123,7 @@ exports.generateEgresoPdf = (req, res) => {
             tesoreria: data_junta.tesoreria
         };
 
-        const path_root = `./docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
+        const path_root = `./src/docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
         const filename = `${data_egreso.proveedor.replace("/","-")}_${data_egreso.periodo.substring(0,4)}_${data_egreso.periodo.substring(5,7)}_N${data_egreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -198,7 +198,7 @@ exports.modifyIngresoPdf = (req, res) => {
             email2: data_vecino.email2
         };
 
-        const path_root = `./docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
+        const path_root = `./src/docs/Ingresos/${data_ingreso.periodo.substring(0,4)}/${data_ingreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_ingreso.concepto}/`;
         const filename = `Chalet_${data_vecino.letra.replace("/","")}_${data_ingreso.concepto}_${data_ingreso.periodo.substring(0,4)}_${data_ingreso.periodo.substring(5,7)}_N${data_ingreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
@@ -265,7 +265,7 @@ exports.modifyEgresoPdf = (req, res) => {
             tesoreria: data_junta.tesoreria
         };
 
-        const path_root = `./docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
+        const path_root = `./src/docs/Egresos/${data_egreso.periodo.substring(0,4)}/${data_egreso.periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${data_egreso.centrocosto}/`;
         const filename = `${data_egreso.proveedor.replace("/","-")}_${data_egreso.periodo.substring(0,4)}_${data_egreso.periodo.substring(5,7)}_N${data_egreso.documento.substring(1,8)}.pdf`;
         const document = {
             html: html,
