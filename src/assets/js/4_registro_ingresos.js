@@ -1,3 +1,5 @@
+
+
 // Descargar Excel
 $("#excel_link").click( (x) => {
 
@@ -47,14 +49,13 @@ $("input[name=fecharegistro]").datepicker({
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2);
 
-        console.log('HOLA')
-
         fetch('http://localhost:3000/api/ingreso')
         .then(response => response.json())
         .then(data => {
             let contador = data.filter(item => item.fecharegistro.slice(-2) == año_reg).length;
             let correlativo = (contador+1).toString().padStart(4,0);
             let doc = `I${año_reg}-${correlativo}`;
+            console.log(data);
 
             $("input[name=documento]").val(doc);
             $("h2").text(`Nuevo ingreso "${doc}"`);
