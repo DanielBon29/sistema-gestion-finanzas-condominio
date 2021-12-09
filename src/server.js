@@ -52,6 +52,3 @@ app.use(function(req, res, next){
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}/home`);
 });
-
-
-// 2. AVERIGUAR COMO MANIPULAR LA DATA PARA QUE EL REPORTE DE FLUJO PUEDA ENTRAR EN UN EXCEL
