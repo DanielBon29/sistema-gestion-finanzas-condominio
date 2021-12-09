@@ -1,7 +1,7 @@
 // Descargar Excel
 $("#excel_link").click( (x) => {
 
-    fetch('http://localhost:3000/api/prestamo')
+    fetch('/api/prestamo')
     .then(response => response.json())
     .then(data => {
         const headers = { documento: 'Documento', 
@@ -47,7 +47,7 @@ $("input[name=fecharegistro]").datepicker({
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2);
 
-        fetch('http://localhost:3000/api/prestamo')
+        fetch('/api/prestamo')
         .then(response => response.json())
         .then(data => {
             let contador = data.length;
@@ -95,7 +95,7 @@ $("#update_prestamo").submit(function(event){
     //
 
     let request = {
-        "url": `http://localhost:3000/api/prestamo/${data.id}`,
+        "url": `/api/prestamo/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -114,7 +114,7 @@ if(window.location.pathname == "/registro-prestamos"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/prestamo/${id}`,
+            "url": `/api/prestamo/${id}`,
             "method": "DELETE"
         };
 

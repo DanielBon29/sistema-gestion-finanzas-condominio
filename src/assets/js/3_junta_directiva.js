@@ -19,8 +19,6 @@ $("#update_junta").submit(function(event){
         data[n['name']] = n['value'];    
     });
 
-    console.log(data);
-
     // Formatting data before inserting to DB//
     let arr_pre = data.presidencia.split(" ");
     let arr_tes = data.tesoreria.split(" ");
@@ -52,7 +50,7 @@ $("#update_junta").submit(function(event){
     //
     
     let request = {
-        "url": `http://localhost:3000/api/junta/${data.id}`,
+        "url": `/api/junta/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -72,7 +70,7 @@ if(window.location.pathname == "/junta-directiva"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/junta/${id}`,
+            "url": `/api/junta/${id}`,
             "method": "DELETE"
         };
 

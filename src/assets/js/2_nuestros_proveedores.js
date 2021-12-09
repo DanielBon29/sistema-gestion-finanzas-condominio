@@ -4,7 +4,7 @@ $("#search_proveedores").submit(function(event){
     let selected_cc = $("#combo_searcher_cc").val();
 
     window.localStorage.setItem('cc', JSON.stringify({selected_cc : selected_cc}));
-    window.location.replace("http://localhost:3000/nuestros-proveedores?centrocosto="+selected_cc);
+    window.location.replace("/nuestros-proveedores?centrocosto="+selected_cc);
 });
 
 // Funcion para cuando se crea un proveedor//
@@ -29,8 +29,6 @@ $("#update_proveedor").submit(function(event){
         data[n['name']] = n['value'];    
     });
 
-    console.log(data);
-
     // Formatting data before inserting to DB//
     let arr_prov = data.proveedor.split(" ");
     let arr_dir = data.direccion.split(" ");
@@ -50,7 +48,7 @@ $("#update_proveedor").submit(function(event){
     //
 
     let request = {
-        "url": `http://localhost:3000/api/proveedor/${data.id}`,
+        "url": `/api/proveedor/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -70,7 +68,7 @@ if(window.location.pathname == "/nuestros-proveedores"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/proveedor/${id}`,
+            "url": `/api/proveedor/${id}`,
             "method": "DELETE"
         };
 

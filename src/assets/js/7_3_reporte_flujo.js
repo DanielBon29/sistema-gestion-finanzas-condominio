@@ -3,13 +3,13 @@ $("#search_reporte").submit(function(event){
     event.preventDefault();
     let selected_año = $("#combo_año_flujo").val();
 
-    console.log(selected_año);
+    // console.log(selected_año);
 
     (selected_año==null)?
     window.localStorage.setItem('flujo', JSON.stringify({selected_año : null})) :
     (
     window.localStorage.setItem('flujo', JSON.stringify({selected_año : selected_año})) &
-    window.location.replace(`http://localhost:3000/reporte-flujo?flujo=${selected_año}`)
+    window.location.replace(`/reporte-flujo?flujo=${selected_año}`)
     );
 });
 
@@ -19,7 +19,7 @@ $(window).on("load", function() {
     storage = window.localStorage.getItem('flujo');
     storage = JSON.parse(storage);
 
-    console.log(storage);
+    // console.log(storage);
 
     (storage.selected_año == null)? 
     $("#content_flujo").css('visibility', 'hidden'):

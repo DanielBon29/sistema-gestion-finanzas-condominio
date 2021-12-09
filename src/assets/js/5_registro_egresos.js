@@ -1,7 +1,7 @@
 // Descargar Excel
 $("#excel_link").click( (x) => {
 
-    fetch('http://localhost:3000/api/egreso')
+    fetch('/api/egreso')
     .then(response => response.json())
     .then(data => {
         const headers = { documento: 'Documento', 
@@ -47,7 +47,7 @@ $("input[name=fecharegistro]").datepicker({
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2); //Se obtienen los 2 ultimos digitos de la fecha de registro.
 
-        fetch('http://localhost:3000/api/egreso') //trae los datos de egreso para manipular en formato JSON
+        fetch('/api/egreso') //trae los datos de egreso para manipular en formato JSON
         .then(response => response.json())
         .then(data => {
             let contador = data.filter(item => item.fecharegistro.slice(-2) == año_reg).length; //filtra los objetos que cumplan la condicion del año seleccionado y muestra la longitud
@@ -70,7 +70,7 @@ $("#combo_cc" ).change(function () {
     cc = $( this ).text(); //almacena el centro de costo seleccionado
     });
 
-    fetch('http://localhost:3000/api/proveedor') //trae los datos de proveedor para manipular en formato JSON
+    fetch('/api/proveedor') //trae los datos de proveedor para manipular en formato JSON
     .then(response => response.json())
     .then(data => {
         let data_filtered = data.filter(item => item.centrocosto == cc); //filtra los objetos que cumplan la condicion del centro de costo seleccionado
@@ -120,7 +120,7 @@ $("#update_egreso").submit(function(event){
     //
 
     let request = {
-        "url": `http://localhost:3000/api/egreso/${data.id}`,
+        "url": `/api/egreso/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -139,7 +139,7 @@ if(window.location.pathname == "/registro-egresos"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/egreso/${id}`,
+            "url": `/api/egreso/${id}`,
             "method": "DELETE"
         };
 

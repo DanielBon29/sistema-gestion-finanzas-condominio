@@ -7,7 +7,7 @@ $("#combo_concepto").change(function () {
     concepto = $( this ).text(); //almacena el concepto seleccionado
     });
 
-    fetch('http://localhost:3000/api/ingreso') //trae los datos de ingresos para manipular en formato JSON
+    fetch('/api/ingreso') //trae los datos de ingresos para manipular en formato JSON
     .then(response => response.json())
     .then(data => {
         let ingresos_validos = data.filter(item => item.estado == "Válido"); //filtra los objetos que cumplan la condicion de ingreso "Válido"
@@ -31,13 +31,13 @@ $("#search_reporte").submit(function(event){
     let selected_concepto = $("#combo_concepto").val();
     let selected_año = $("#combo_año").val();
 
-    console.log(selected_concepto,'-', selected_año);
+    // console.log(selected_concepto,'-', selected_año);
 
     (selected_concepto==null || selected_año==null)?
     window.localStorage.setItem('reporte', JSON.stringify({selected_concepto : null, selected_año : null})) :
     (
     window.localStorage.setItem('reporte', JSON.stringify({selected_concepto : selected_concepto, selected_año : selected_año})) &
-    window.location.replace(`http://localhost:3000/reporte-morosidad?concepto=${selected_concepto}&anio=${selected_año}`)
+    window.location.replace(`/reporte-morosidad?concepto=${selected_concepto}&anio=${selected_año}`)
     );
 });
 
@@ -47,7 +47,7 @@ $(window).on("load", function() {
     storage = window.localStorage.getItem('reporte');
     storage = JSON.parse(storage);
 
-    console.log(storage);
+    // console.log(storage);
 
     (storage.selected_concepto == null || storage.selected_año == null)? 
     $("#content_mor").css('visibility', 'hidden'):

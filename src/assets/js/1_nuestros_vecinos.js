@@ -19,8 +19,6 @@ $("#update_vecino").submit(function(event){
         data[n['name']] = n['value'];    
     });
 
-    console.log(data);
-
     // Formatting data before inserting to DB//
     let arr_vecino = data.vecino.split(" ");
 
@@ -36,7 +34,7 @@ $("#update_vecino").submit(function(event){
     //
 
     let request = {
-        "url": `http://localhost:3000/api/users/${data.id}`,
+        "url": `/api/users/${data.id}`,
         "method": "PUT",
         "data": data
     };
@@ -55,7 +53,7 @@ if(window.location.pathname == "/nuestros-vecinos"){
         let id=$(this).attr("data-id")
 
         let request = {
-            "url": `http://localhost:3000/api/users/${id}`,
+            "url": `/api/users/${id}`,
             "method": "DELETE"
         };
 
