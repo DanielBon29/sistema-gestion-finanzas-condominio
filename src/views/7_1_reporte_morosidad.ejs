@@ -36,6 +36,12 @@
                     </select>
                     <select id="combo_año" name="combo_año">
                         <option selected="true" disabled="disabled">Seleccionar Año</option>
+                        <% let años = [...new Set([...años_ing, ...años_eg, ...año_actual])];
+                        años.sort((a,b) => (a > b) ? -1 : ((b > a) ? 1 : 0)) // años sorting desc
+                       
+                        for(let i=0; i < años.length; i++) {%>
+                        <option value="<%=años[i]%>"><%=años[i]%></option>
+                        <% } %>
                     </select>
                     <button type="submit" id="search_reporte" class="btn text-dark update">Buscar</button>
                 </div>

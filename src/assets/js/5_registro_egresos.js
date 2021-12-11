@@ -77,7 +77,7 @@ $("#combo_cc" ).change(function () {
         let prov_array = data_filtered.map(a => a.proveedor); //mapea el listado de proveedores de los objetos filtrados previamente
 
         let options = "";
-        for(i = 0; i < prov_array.length; i++) {
+        for(let i = 0; i < prov_array.length; i++) {
             options = options + `<option>${prov_array[i]}</option>`; //se crea un string con las opciones a insertar en el elemento combobox 
         };
 
