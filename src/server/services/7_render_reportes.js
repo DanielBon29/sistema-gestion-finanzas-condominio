@@ -17,7 +17,7 @@ exports.reporteMorosidad = (req, res) => {
     axios.all([source1,source2,source3,source4])
     .then(axios.spread((...responses) => {
         let ing_fijos = responses[3].data.filter(item => item.concepto == 'Mantenimiento Mensual' || item.concepto == 'Estacionamiento Mensual');
-        console.log(ing_fijos);
+ 
         res.render('7_1_reporte_morosidad',
             {vecinos:responses[0].data, 
             ingresos:responses[1].data,
