@@ -13,16 +13,16 @@ exports.reporteMorosidad = (req, res) => {
     const source2 = axios.get(`http://localhost:3000/api/ingreso?concepto=${req.query.concepto}&anio=${req.query.anio}`);
     const source3 = axios.get(`http://localhost:3000/api/cuota?anio=${req.query.anio}`);
     const source4 = axios.get('http://localhost:3000/api/ingreso');
-    const source5 = axios.get('http://localhost:3000/api/egreso');
 
-    axios.all([source1,source2,source3,source4,source5])
+    axios.all([source1,source2,source3,source4])
     .then(axios.spread((...responses) => {
+        let ing_fijos = responses[3].data.filter(item => item.concepto == 'Mantenimiento Mensual' || item.concepto == 'Estacionamiento Mensual');
+        console.log(ing_fijos);
         res.render('7_1_reporte_morosidad',
             {vecinos:responses[0].data, 
             ingresos:responses[1].data,
             cuotas:responses[2].data,
-            años_ing:[...new Set(responses[3].data.map(item => item.fecharegistro.substring(6,10)))],
-            años_eg:[...new Set(responses[4].data.map(item => item.fecharegistro.substring(6,10)))],
+            años_ing:[...new Set(ing_fijos.map(item => item.periodo.substring(0,4)))],
             año_actual: [String(new Date().getFullYear())] //para asegurar que el combo box del año muestre el año actual
             }
         );
