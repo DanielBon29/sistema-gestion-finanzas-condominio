@@ -34,15 +34,19 @@
             new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotaestacionamiento});
         };
 
+        console.log(ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == 6 && item.vecino.substring(7,8) == "D").map(item => item.monto).reduce((prev, curr) => prev + curr, 0));
+
         for(let i=0; i < vecinos_visibles.length; i++) {
             let pagado = 0;
             let por_pagar = 0;%>
         <tr>
             <td id='letra'><%=vecinos_visibles[i].letra%></td>
 
-            <%for(let j=0; j < 12; j++) {
-                let ingreso_filtrado = ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == j+1 && item.vecino.substring(7,8) == vecinos_visibles[i].letra)[0];
-                let monto_pagado = ingreso_filtrado==undefined? 0: ingreso_filtrado.monto;
+            <%
+            for(let j=0; j < 12; j++) {
+                let ingreso_filtrado = ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == j+1 && item.vecino.substring(7,8) == vecinos_visibles[i].letra).map(item => item.monto).reduce((prev, curr) => prev + curr, 0)
+
+                let monto_pagado = ingreso_filtrado==undefined? 0: ingreso_filtrado;
                 pagado = pagado + monto_pagado;
                 por_pagar = por_pagar + new_cuota_array[j];
             %>
