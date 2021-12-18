@@ -8,8 +8,8 @@
         <td><%=prestamos[i].vecino%></td>
         <td><%=prestamos[i].concepto%></td>
         <td><%=prestamos[i].periodo%></td>
-        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(prestamos[i].montoprestado)%></td>
-        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(prestamos[i].montocobrado)%></td>
+        <td><%=prestamos[i].montoprestado.toFixed(2)%></td>
+        <td><%=prestamos[i].montocobrado.toFixed(2)%></td>
         <td><%=prestamos[i].montoprestado <= prestamos[i].montocobrado? 'CANCELADO' : 'POR COBRAR'%></td>
         <td><%=prestamos[i].estado%></td>
         <td>

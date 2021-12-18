@@ -17,7 +17,7 @@
         <td><%=ingresos[i].vecino%></td>
         <td><%=ingresos[i].concepto%></td>
         <td><%=ingresos[i].periodo%></td>
-        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(ingresos[i].monto)%></td>
+        <td><%=ingresos[i].monto.toFixed(2)%></td>
         <td><%=ingresos[i].estado%></td>
         <td>
             <a href="/registro-ingresos-modificar?id=<%=ingresos[i]._id%>" class="btn border-shadow update">

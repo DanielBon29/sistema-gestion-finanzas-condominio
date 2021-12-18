@@ -37,7 +37,7 @@
                         return prev + (cur.montoprestado - cur.montocobrado);
                     }, 0); 
                 %>
-                <h2 id="kpi" class="text-dark">Total por cobrar <%=sum_deuda > 0? new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(sum_deuda) : 'S/ 0.00'%></h2>
+                <h2 id="kpi" class="text-dark">Total por cobrar S/ <%=sum_deuda > 0? sum_deuda.toFixed(2): '0.00'%></h2>
             </div>
 
             <form id="content">
@@ -50,7 +50,7 @@
                     <thead class="thead-dark">
                         <tr>
                             <th>Vecino</th>
-                            <th>Monto por Cobrar</th>
+                            <th>Monto por Cobrar (S/)</th>
                         </tr>
                     </thead>
                 </table>

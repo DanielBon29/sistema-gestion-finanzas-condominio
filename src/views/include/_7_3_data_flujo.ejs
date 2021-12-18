@@ -45,7 +45,7 @@
             <td class='col1'>Saldo Anterior</td>
             <% for(let j=0; j < 12; j++) {
                 let valor = saldo_anterior[j];%>
-                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? '-':valor.toFixed(2);%></td> 
             <% } %>
         </tr>
         <tr><td></td></tr>
@@ -55,7 +55,7 @@
             <% for(let j=0; j < 12; j++) {
                 let in_filt_mes_concep = ingresos_validos_sin_saldoant.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.concepto == CONCEPTOS[i]);
                 let suma_monto = in_filt_mes_concep.reduce((accum,item) => accum + item.monto,0);%> 
-            <td id='ingreso'><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <td id='ingreso'><%=suma_monto == 0 ? '-':suma_monto.toFixed(2) ;%></td>
             <% } %>
         </tr>
     <% } %>
@@ -63,7 +63,7 @@
             <td class='col1'>Total Ingresos</td>  
             <% for(let j=0; j < 12; j++) {
                 let valor = total_ingresos[j];%>
-                <td><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+                <td><%=valor == 0 ? '-':valor.toFixed(2);%></td>
             <% } %>
         </tr>
         <tr><td></td></tr>
@@ -73,7 +73,7 @@
             <% for(let j=0; j < 12; j++) {
                 let eg_filt_mes_cc= egresos_validos.filter(item => parseInt(item.fecharegistro.substring(3,5)) == j+1 && item.centrocosto == centrocostos[i]);
                 let suma_monto = eg_filt_mes_cc.reduce((accum,item) => accum + item.monto,0) * -1;%> 
-            <td id='egreso'><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <td id='egreso'><%=suma_monto == 0 ? '-':suma_monto.toFixed(2);%></td>
             <% } %>
         </tr>
     <% } %>
@@ -81,7 +81,7 @@
             <td class='col1'>Total Egresos</td>  
             <% for(let j=0; j < 12; j++) {
                 let valor = total_egresos[j];%>
-                <td><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+                <td><%=valor == 0 ? '-':valor.toFixed(2);%></td>
             <% } %>
         </tr>
         <tr><td></td></tr>
@@ -89,7 +89,7 @@
             <td class='col1'>Saldo Final</td>  
             <% for(let j=0; j < 12; j++) {
                 let valor = saldo_final[j];%>
-                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(valor);%></td>
+                <td id=<%=Math.sign(valor) == -1? 'saldo_negativo' : 'saldo_positivo'%>><%=valor == 0 ? '-':valor.toFixed(2);%></td>
             <% } %>
         </tr>
     <% for(let i=0; i < CUENTAS.length; i++) { 
@@ -105,7 +105,7 @@
                 let suma_monto_in = in_filt_mes_cuenta.reduce((accum,item) => accum + item.monto,0);
                 let suma_monto_eg = eg_filt_mes_cuenta.reduce((accum,item) => accum + item.monto,0) * -1;
                 suma_monto = suma_monto + suma_monto_in + suma_monto_eg;%>
-            <td id=<%=Math.sign(suma_monto)==-1? 'saldo_negativo' : 'saldo_positivo'%>><%=suma_monto == 0 ? 'S/ - ': new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(suma_monto);%></td>
+            <td id=<%=Math.sign(suma_monto)==-1? 'saldo_negativo' : 'saldo_positivo'%>><%=suma_monto == 0 ? '-':suma_monto.toFixed(2);%></td>
             <% } %>
         </tr>
     <% } %>

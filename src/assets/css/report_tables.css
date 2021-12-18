@@ -55,6 +55,7 @@ table a{
 /* Reporte Flujo */
 .table_flujo #empty_header{
     background-color: white;
+    color: var(--green_hover);
     border-color: white;
 }
 

@@ -15,7 +15,7 @@
         <td><%=egresos[i].centrocosto%></td>
         <td><%=egresos[i].proveedor%></td>
         <td><%=egresos[i].periodo%></td>
-        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(egresos[i].monto)%></td>
+        <td><%=egresos[i].monto.toFixed(2)%></td>
         <td><%=egresos[i].estado%></td>
         <td>
             <a href="/registro-egresos-modificar?id=<%=egresos[i]._id%>" class="btn border-shadow update">

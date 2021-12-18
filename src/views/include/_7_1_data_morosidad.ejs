@@ -54,8 +54,8 @@
                 <%=monto_pagado%>
             </td>
             <% } %>
-            <td class="pagado"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(pagado)%></td>
-            <td class="por_pagar"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(por_pagar - pagado)%></td>
+            <td class="pagado"><%=pagado.toFixed(2)%></td>
+            <td class="por_pagar"><%=(por_pagar - pagado).toFixed(2)%></td>
         </tr>
     <%    t_por_pagar = t_por_pagar + por_pagar - pagado;
         }
@@ -65,6 +65,6 @@
 <tfoot>
     <tr>
         <td class="pagado" colspan = 14>Total por pagar</td>
-        <td class="por_pagar"><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(t_por_pagar)%></td>
+        <td class="por_pagar"><%=t_por_pagar.toFixed(2)%></td>
     </tr>
 </tfoot>

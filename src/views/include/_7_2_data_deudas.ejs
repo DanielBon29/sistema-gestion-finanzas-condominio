@@ -32,6 +32,6 @@
     for(let i=0; i < filtered.length; i++) { %>
     <tr>
         <td><%=filtered[i].vecino%></td>
-        <td><%=new Intl.NumberFormat(undefined,{style: 'currency', currency: 'PEN'}).format(filtered[i].deuda)%></td>
+        <td><%=filtered[i].deuda.toFixed(2)%></td>
     </tr>
 <%  }; %>
