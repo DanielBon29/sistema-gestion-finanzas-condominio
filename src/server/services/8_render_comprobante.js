@@ -46,7 +46,7 @@ exports.generateIngresoPdf = (req, res) => {
         };
 
         // Mensaje de Whatsapp
-        let wpp_msg = `https://web.whatsapp.com/send?phone=+51${data_vecino.celular}&text=Estimado(a) vecino(a) del Chalet ${data_vecino.letra}: %0a%0aNos es grato saludarle y comunicarle que su pago por concepto de *${data_i.concepto} del Periodo ${data_i.periodo}* ha sido registrado satisfactoriamente.%0aSe adjunta su comprobante de pago electrónico, el cual reemplaza al comprobante físico habitual. De esta manera, contribuímos con el medio ambiente evitando el uso masivo del papel y nos acogemos a la coyuntura actual dada la Emergencia Sanitaria. Por favor, conservarlo para cualquier futura eventualidad. *Puede revisarlo abriendo el siguiente enlace en su navegador de Internet*%0aAgradecemos su activa participación para con nuestro condominio, el cual es hogar de todos. %0a%0a*La Junta Directiva ${data_ingreso.fecharegistro.substring(6,10)}*%0aCalle Enrique Palacios 635 - Miraflores - Lima - Perú`;
+        let wpp_msg = `https://web.whatsapp.com/send?phone=+51${data_vecino.celular}&text=Estimado(a) vecino(a) del Chalet ${data_vecino.letra}: %0a%0aNos es grato saludarle y comunicarle que su pago por concepto de *${data_i.concepto} del Periodo ${data_i.periodo}* ha sido registrado satisfactoriamente.%0aSe adjunta su comprobante de pago electrónico, el cual reemplaza al comprobante físico habitual. De esta manera, contribuimos con el medio ambiente evitando el uso masivo del papel y nos acogemos a la coyuntura actual dada la Emergencia Sanitaria. Por favor, conservarlo para cualquier futura eventualidad. *Puede revisarlo abriendo el siguiente enlace en su navegador de Internet*%0aAgradecemos su activa participación para con nuestro condominio, el cual es hogar de todos. %0a%0a*La Junta Directiva ${data_ingreso.fecharegistro.substring(6,10)}*%0aCalle Enrique Palacios 635 - Miraflores - Lima - Perú` ;
 
         const data_v = {
             vecino: data_vecino.vecino,
@@ -68,6 +68,7 @@ exports.generateIngresoPdf = (req, res) => {
             },
             path: origin_root + path_root + filename
         };
+        // console.log(document.data.vecino.mensaje_wpp);
         // console.log(document.data);
         // console.log(document.path);
 

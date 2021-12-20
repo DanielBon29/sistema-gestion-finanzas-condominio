@@ -47,7 +47,11 @@
                     </a>
                 </div>
                 <div class="collection-div">
-                    <a <%=vecino.celular=="" ? "" : href=vecino.mensaje_wpp.replaceAll(" ", "%20") %> target="_blank">
+                    <% if(vecino.celular==""){ %>
+                        <a>
+                    <% } else{ %>
+                        <a href=<%=vecino.mensaje_wpp.replaceAll(" ", "%20")%> target="_blank">
+                    <% } %>
                         <span id=<%=vecino.celular=="" ? "sin_celular" : "con_celular"%> class="collection-icon">
                             <i class="fab fa-whatsapp"></i>
                             <br>
