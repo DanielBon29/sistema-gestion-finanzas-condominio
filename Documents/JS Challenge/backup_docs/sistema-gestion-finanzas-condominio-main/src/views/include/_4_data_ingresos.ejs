@@ -1,0 +1,33 @@
+<%  ingresos.sort((a,b) => (a.documento > b.documento) ? -1 : ((b.documento > a.documento) ? 1 : 0)) // data sorting by "documento" desc
+    const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
+
+    for(let i=0; i < ingresos.length; i++) {
+        let mes_periodo = parseInt(ingresos[i].periodo.substring(5,7));
+        let mes_registro = parseInt(ingresos[i].fecharegistro.substring(3,5));
+        let extrae_letra = ingresos[i].vecino.substring(8,9) == "/"? ingresos[i].vecino.substring(7,10) : ingresos[i].vecino.substring(7,8);
+
+        const path_root = `./docs/Ingresos/${ingresos[i].periodo.substring(0,4)}/${ingresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${ingresos[i].concepto}/`;
+        // const path_root = `./docs/Ingresos/${ingresos[i].periodo.substring(0,4)}/${ingresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${ingresos[i].concepto}/`;
+        const filename = `Chalet_${extrae_letra.replace("/","")}_${ingresos[i].concepto}_${ingresos[i].periodo.substring(0,4)}_${ingresos[i].periodo.substring(5,7)}_N${ingresos[i].documento.substring(1,8)}.pdf`;
+        const filepath = path_root + filename;
+        %>
+    <tr id=<%=ingresos[i].estado =='Válido'? 'reg_valido':'reg_anulado'%>>
+        <td><a href='<%=filepath%>' target="_blank"><i class="far fa-file-pdf"></i> <%=ingresos[i].documento%></a></td>
+        <td><%=ingresos[i].fecharegistro%></td>
+        <td><%=ingresos[i].vecino%></td>
+        <td><%=ingresos[i].concepto%></td>
+        <td><%=ingresos[i].periodo%></td>
+        <td><%=ingresos[i].monto.toFixed(2)%></td>
+        <td><%=ingresos[i].estado%></td>
+        <td>
+            <a href="/registro-ingresos-modificar?id=<%=ingresos[i]._id%>" class="btn border-shadow update">
+                <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <!-- Para eliminar registros - solo para ambiente de desarrollo o pruebas -->
+            <!-- <a class="btn border-shadow delete" data-id=<%=ingresos[i]._id%>>
+                <span class="text-delete"><i class="fas fa-times"></i></span>
+            </a>  -->
+            
+        </td>
+    </tr>
+    <% } %>

@@ -1,0 +1,75 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/datatables.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Registro de Egresos</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/home"><i class="fas fa-angle-double-left"></i> Menú</a>
+                </div>
+                <div class="filter">
+                    <a id="excel_link"><i class="fas fa-file-excel"></i> Excel</a>
+                </div>
+                <div class="filter">
+                    <a href="/registro-egresos-crear"><i class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+            <!-- form-handling -->
+            <form action="/" method='POST'>
+                <table class="table">
+                    <col style="width: 7.81%;">
+                    <col style="width: 10.19%;">
+                    <col style="width: 21.88%;">
+                    <col style="width: 32.25%;">
+                    <col style="width: 6.64%;">
+                    <col style="width: 6.64%;">
+                    <col style="width: 6.43%;">
+                    <col style="width: 8.56%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Documento</th>
+                            <th>Fecha de Registro</th>
+                            <th>Centro de Costo</th>
+                            <th>Proveedor</th>
+                            <th>Periodo</th>
+                            <th>Monto (S/)</th>
+                            <th>Estado</th>
+                            <th>Modificar</th>
+                        </tr> 
+                    </thead>
+                </table>
+                <div class="table-wrapper" style="width: 100%; height: 62vh; overflow: auto;">
+                    <table class="table">
+                        <tbody>
+                            <!-- add table -->
+                            <%- include('include/_5_data_egresos') %> 
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+
+    <script src="/js/5_registro_egresos.js"></script>
+    
+<!-- include footer -->
+    <%- include('include/_8_footer') %>
+<!-- include footer -->

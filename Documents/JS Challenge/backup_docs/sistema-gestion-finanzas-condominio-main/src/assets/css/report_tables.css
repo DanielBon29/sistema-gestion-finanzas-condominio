@@ -1,0 +1,102 @@
+
+/* Comunes */
+.form-title{
+    margin-top: 0;
+}
+
+.form-title >h2{
+    padding: .5em 0;
+}
+
+table{
+    border-spacing: 0px;
+    width: 100%;
+}
+
+table a{
+    font-weight: normal;
+}
+
+.table_mor td, .table_mor th,
+.table_flujo td, .table_flujo th{
+    padding: .5em;
+    vertical-align: center;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.table_mor .thead-dark th,
+.table_mor #estacionamiento,
+.table_mor #letra,
+.table_flujo .thead-dark th{
+    color: #fff;
+    background-color: var(--dark);
+    border-color: #32383e;
+}
+
+/* Reporte morosidad */
+.table_mor #mes_pagado{
+    background-color: var(--green_hover);
+}
+
+.table_mor #mes_no_pagado{
+    background-color: var(--red);
+}
+
+.table_mor .pagado{
+    font-weight: bold; 
+    color: var(--dark);
+}
+
+.table_mor .por_pagar {
+    font-weight: bold; 
+    color: var(--red);
+}
+
+/* Reporte Flujo */
+.table_flujo #empty_header{
+    background-color: white;
+    color: var(--green_hover);
+    border-color: white;
+}
+
+.table_flujo .col1{
+    width: 18%;
+    text-align: left;
+}
+
+.table_flujo td, .table_flujo th{
+    width: 3%;
+    font-weight: bold;
+} 
+
+.table_flujo #s_anterior,
+.table_flujo #s_final{
+    color: var(--dark);
+    background-color: var(--green_hover);
+    border-color: #32383e;
+}
+
+.table_flujo #t_ingresos{
+    color: #fff;
+    background-color: var(--dark);
+    border-color: #32383e;
+}
+
+.table_flujo #t_egresos{
+    color: #fff;
+    background-color: var(--red);
+    border-color: #32383e;
+}
+
+.table_flujo #ingreso,
+.table_flujo #saldo_positivo,
+.table_flujo #cuenta{
+    color: var(--dark);
+}
+
+.table_flujo #egreso,
+.table_flujo #saldo_negativo{
+    color: var(--red);
+}
+

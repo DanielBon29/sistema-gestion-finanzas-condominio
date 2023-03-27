@@ -1,0 +1,95 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Registro de Préstamos y Cobranzas</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/registro-prestamos"><i class="fas fa-angle-double-left"></i> Préstamos</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Modificar registro "<%=prestamo.documento%>"</h2>
+            </div>
+                <!-- form-handling -->
+                <form action="/api/prestamo" method='POST' id="update_prestamo">
+                    <div class="form_body">
+                        <div class="form-group">
+                            <label for="documento" class="text-light">Documento</label>
+                            <input type="hidden" name="id" value="<%=prestamo._id%>">
+                            <input type="text" name="documento" value="<%=prestamo.documento%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="fecharegistro" class="text-light">Fecha de Registro</label>
+                            <input type="text" name="fecharegistro" value="<%=prestamo.fecharegistro%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="vecino" class="text-light">Vecino</label>
+                            <input type="text" name="vecino" value="<%=prestamo.vecino%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="concepto" class="text-light">Concepto</label>
+                            <input type="text" name="concepto" value="<%=prestamo.concepto%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="periodo" class="text-light">Periodo</label>
+                            <input type="text" name="periodo" value="<%=prestamo.periodo%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="montoprestado" class="text-light">Préstamo (S/)</label>
+                            <input type="number" min="0.01" step="0.01" name="montoprestado" value="<%=prestamo.montoprestado%>" readonly>
+                        </div>
+                        <div class="form-group">
+                            <label for="detalle" class="text-light">Detalle</label>
+                            <input type="text" maxlength="150" name="detalle" value="<%=prestamo.detalle%>" placeholder="Ingrese Mayor Detalle del Préstamo (máx. 150 caracteres) (obligatorio)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="documentocobrado" class="text-light">Documento que amortiza el préstamo</label>
+                            <input type="text" maxlength="100" name="documentocobrado" value="<%=prestamo.documentocobrado%>" placeholder="En caso de haber amortizado, ingrese el/los documentos: Ej.'I21-0000'">
+                        </div>
+                        <div class="form-group">
+                            <label for="montocobrado" class="text-light">Amortizado (S/)</label>
+                            <input type="number" min="0.00" step="0.01" name="montocobrado" value="<%=prestamo.montocobrado%>" placeholder="Ingrese Monto Amortizado, por defecto '0' (obligatorio)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="text-light">Estado</label>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-2" name="estado" value="Válido" <%=prestamo.estado=='Válido'?'checked':''%>>
+                                <label for="radio-2" class="radio-label">Válido</label>
+                            </div>
+                            <div class="radio inline">
+                                <input type="radio" id="radio-3" name="estado" value="Anulado" <%=prestamo.estado=='Anulado'?'checked':''%>>
+                                <label for="radio-3" class="radio-label">Anulado</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn text-dark update">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+    
+    <script src="/js/6_registro_prestamos.js"></script>
+    
+<!-- include footer -->
+<%- include('include/_8_footer') %>
+<!-- include footer -->

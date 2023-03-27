@@ -1,0 +1,87 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/forms.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Nuestros Proveedores</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a id="back_btn" href=""><i class="fas fa-angle-double-left"></i> Proveedores</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <h2 class="text-dark">Nuevo proveedor</h2>
+            </div>
+                <!-- form-handling -->
+                <form action="/api/proveedor" method='POST' id="add_proveedor">
+                    <div class="form_body">
+                        <div class="form-group">
+                            <label for="centrocosto" class="text-light">Centro de Costo</label>
+                            <input type="hidden" name="id" value="">
+                            <input type="text" name="centrocosto" value="" placeholder="Ej: Limpieza">
+                        </div>
+                        <div class="form-group">
+                            <label for="proveedor" class="text-light">Proveedor</label>
+                            <input type="text" name="proveedor" value="" placeholder="Nombre de persona o empresa proveedora (obligatorio)" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="documento" class="text-light">#DNI / RUC</label>
+                            <input type="text" name="documento" value="" placeholder="DNI - RUC - Otro documento del proveedor">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion" class="text-light">Dirección</label>
+                            <input type="text" name="direccion" value="" placeholder="Domicilio o ubicación del proveedor">
+                        </div>
+                        <div class="form-group">
+                            <label for="celular" class="text-light">#Celular</label>
+                            <input type="text" name="celular" value="" placeholder="Número de contacto con el proveedor">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="text-light">@Email</label>
+                            <input type="text" name="email" value="" placeholder="ejemplo@gmail.com">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn text-dark update">Crear</button>
+                        </div>
+                    </div>
+                </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/2_nuestros_proveedores.js"></script>
+    <script>
+        // Función de carga de la página, indica que debe traer el Centro de costo almacenado previamente y asignarlo al campo Centro de Costo del formulario
+        $(window).on("load", function() {
+            let storage = window.localStorage.getItem('cc');
+            storage = JSON.parse(storage);
+
+            // console.log(storage);
+            
+            $("input[name=centrocosto]").val(storage.selected_cc);
+            $("input[name=centrocosto]").prop("readonly",true);
+
+            (storage.selected_cc == null)? 
+            $("#add_btn").attr("href","/home"):
+            $("#back_btn").attr("href","/nuestros-proveedores?centrocosto="+storage.selected_cc);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow&family=PT+Sans&display=swap');
+
+:root{
+    --dark: #2b2d42;
+    --white_hover: #edf2f4;
+    --green: #06d6a0;
+}
+
+*{
+    padding:0;
+    margin:auto;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: var(--green);
+}
+
+#site-main{
+    margin-top: 5%;
+}
+
+a,h1,h2{
+    text-decoration: none;
+    color: var(--dark);
+    font-family: 'PT Sans', sans-serif;
+    font-weight: bold;
+    margin: .5em;
+}
+
+a{
+    cursor: pointer;
+}
+
+a:hover{
+    color: var(--white_hover);
+}
+
+.filter a{
+    font-size: 22px;
+}
+
+.collection{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-auto-rows: auto;
+    gap: 2.5em;
+    justify-content: center;
+    background-color: none;
+}
+
+.collection-icon{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-size: 25px;
+}
+
+.collection-icon i{
+    font-size: 100px;
+}
+
+.container{
+    max-width: 1024px;
+    margin: auto;
+}
+
+.message{
+    text-align: center;
+    margin: 1em;
+}
+
+.message i{
+    text-align: center;
+    color: var(--dark);
+    font-size: 60px;
+    font-weight: bold;
+}

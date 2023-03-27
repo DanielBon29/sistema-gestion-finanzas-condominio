@@ -1,0 +1,26 @@
+
+.collection{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 300px);
+    grid-auto-rows: auto;
+    gap: 7em;
+    justify-content: center;
+    background-color: none;
+}
+
+.collection-icon{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: var(--dark);
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.collection-icon:hover{
+    color: var(--green_hover);
+}
+
+.collection-icon i{
+    font-size: 100px;
+}

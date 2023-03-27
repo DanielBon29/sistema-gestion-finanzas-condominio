@@ -1,0 +1,89 @@
+
+table{
+    border-spacing: 0px;
+    width: 100%;
+}
+
+table a{
+    font-weight: normal;
+}
+
+.table td, .table th{
+    padding: .5em;
+    vertical-align: center;
+    text-align: center;
+    border-top: 1px solid var(--border);
+}
+
+.table td >a.btn{
+    padding: .3em .8em;
+    font-size: .8em;
+    margin: 0 .2em;
+}
+
+.table .thead-dark th{
+    color: #fff;
+    background-color: var(--dark);
+    border-color: #32383e;
+}
+
+.table tr:hover,
+.table #reg_valido:hover{
+    background-color: var(--green_hover);
+}
+
+.table #reg_anulado,
+.table #reg_anulado a{
+    color: var(--red);
+}
+
+.table #reg_anulado:hover,
+.table #reg_anulado:hover a{
+    background-color: var(--red);
+    color: var(--border);
+}
+
+.table tr:hover td>a{
+    box-shadow: none;
+}
+
+.border-shadow{
+    border: 1px solid var(--border-btn);
+    box-shadow: 1px 3px 10px var(--shadow);
+}
+
+.text-update{
+    background: var(--dark);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+}
+
+.text-delete{
+    background: var(--red);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color:transparent;
+}
+
+
+@media only screen and (max-width:1024px){
+    table,thead,tbody,th,td,tr{
+        display: block;
+    }
+
+    thead tr{
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr{
+        border: 1px solid var(--border);
+    }
+
+    td{
+        border: none;
+        position: relative;
+    }
+}

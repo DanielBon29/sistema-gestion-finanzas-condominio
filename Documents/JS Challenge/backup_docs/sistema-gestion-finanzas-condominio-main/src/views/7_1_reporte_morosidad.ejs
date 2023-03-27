@@ -1,0 +1,85 @@
+
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/searchers.css">
+<link rel="stylesheet" href="css/report_tables.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Reporte de Morosidad Mensual</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/reportes"><i class="fas fa-angle-double-left"></i> Reportes</a>
+                </div>
+            </div>
+            <form action="/api/ingreso" method='GET' id="search_reporte">
+                <div class="searcher_reporte">
+                    <select id="combo_concepto" name="combo_concepto">
+                        <option selected="true" disabled="disabled">Seleccionar Concepto</option>
+                        <option>Mantenimiento Mensual</option>
+                        <option>Estacionamiento Mensual</option>
+                    </select>
+                    <select id="combo_año" name="combo_año">
+                        <option selected="true" disabled="disabled">Seleccionar Año</option>
+                        <% let años = [...new Set([...años_ing, ...año_actual])];
+                        años.sort((a,b) => (a > b) ? -1 : ((b > a) ? 1 : 0)) // años sorting desc
+                       
+                        for(let i=0; i < años.length; i++) {%>
+                        <option value="<%=años[i]%>"><%=años[i]%></option>
+                        <% } %>
+                    </select>
+                    <button type="submit" id="search_reporte" class="btn text-dark update">Buscar</button>
+                </div>
+            </form>
+            <form id="content_mor" style="visibility: hidden;">
+                <div class="form-title text-center">
+                    <h2 id="table_title" class="text-dark"></h2>
+                </div>
+                <table class="table_mor">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th id="th_est">Est.</th>
+                            <th>Letra</th>
+                            <th>Ene</th>
+                            <th>Feb</th>
+                            <th>Mar</th>
+                            <th>Abr</th>
+                            <th>May</th>
+                            <th>Jun</th>
+                            <th>Jul</th>
+                            <th>Ago</th>
+                            <th>Set</th>
+                            <th>Oct</th>
+                            <th>Nov</th>
+                            <th>Dic</th>
+                            <th>Pagado (S/)</th>
+                            <th>Por Pagar (S/)</th>
+                        </tr>
+                    </thead>
+                        <!-- add table -->
+                        <%- include('include/_7_1_data_morosidad') %>
+                </table>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+    
+    <script src="/js/7_1_reporte_morosidad.js"></script>
+</body>
+</html>

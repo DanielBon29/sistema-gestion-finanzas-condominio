@@ -1,0 +1,70 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/datatables.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Reporte de Deudas por Cobrar</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/reportes"><i class="fas fa-angle-double-left"></i> Reportes</a>
+                </div>
+            </div>
+            <div class="form-title text-center">
+                <% function selectProps(show) {
+                        const {vecino, montoprestado, montocobrado} = show;
+                        return {vecino, montoprestado, montocobrado};
+                    }
+
+                    let reduced_array = prestamos.map(selectProps);
+                    let sum_deuda = reduced_array.reduce(function(prev, cur) {
+                        return prev + (cur.montoprestado - cur.montocobrado);
+                    }, 0); 
+                %>
+                <h2 id="kpi" class="text-dark">Total por cobrar S/ <%=sum_deuda > 0? sum_deuda.toFixed(2): '0.00'%></h2>
+            </div>
+
+            <form id="content">
+                <div class="form-title text-center">
+                    <h2 id="table_title" class="text-dark"></h2>
+                </div>
+                <table class="table">
+                    <col style="width: 71.38%;">
+                    <col style="width: 28.62%;">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Vecino</th>
+                            <th>Monto por Cobrar (S/)</th>
+                        </tr>
+                    </thead>
+                </table>
+                <div class="table-wrapper" style="width: 100%; height: 62vh; overflow: auto;">
+                    <table class="table">
+                        <tbody>
+                            <!-- add table -->
+                            <%- include('include/_7_2_data_deudas') %>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+</body>
+</html>

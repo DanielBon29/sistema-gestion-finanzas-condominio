@@ -1,0 +1,48 @@
+
+.searcher_prov{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,504px);
+    grid-auto-rows: auto;
+    gap: 1em;
+    justify-content: center;
+}
+
+.searcher_reporte{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,300px);
+    grid-auto-rows: auto;
+    gap: 1em;
+    justify-content: center;
+}
+
+#combo_searcher_cc,
+#combo_concepto,
+#combo_año,
+#combo_año_flujo{
+    width: 100%;
+    padding: .6em 1em;
+    margin: .5em 0;
+    border: 1px solid var(--border);
+    font-family: 'Barlow', sans-serif;
+    font-size: 1em;
+    border-radius: .2em;
+}
+
+#search_proveedores .btn,
+#search_reporte .btn{
+    width: 100%;
+    padding: .9em 1em;
+    background-color: var(--green_hover);
+    border: none;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: .2em;
+    margin: .5em 0;
+}
+
+#search_proveedores .btn:hover,
+#search_reporte .btn:hover{
+    background-color: var(--dark);
+    color: var(--border);
+}

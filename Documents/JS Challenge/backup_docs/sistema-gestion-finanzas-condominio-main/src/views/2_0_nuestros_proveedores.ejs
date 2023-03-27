@@ -1,0 +1,92 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/searchers.css">
+<link rel="stylesheet" href="css/datatables.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Nuestros Proveedores</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                    <a href="/home"><i class="fas fa-angle-double-left"></i> Menú</a>
+                </div>
+            </div>
+            <form action="/api/proveedor" method='GET' id="search_proveedores">
+                <div class="searcher_prov">
+                    <select id="combo_searcher_cc" name="combo_searcher_cc">
+                        <option selected="true" disabled="disabled">Seleccionar Centro de Costo</option>
+                        <% for(let i=0; i < cc.length; i++) {%>
+                        <option value="<%=cc[i].centrocosto%>"><%=cc[i].centrocosto%></option>
+                        <% } %>
+                    </select>
+                    <button type="submit" id="search_cc" class="btn text-dark update">Buscar</button>
+                </div>
+            </form>
+            <div class="box-nav d-flex justify-between">
+                <div class="filter">
+                </div>
+                <div class="filter">
+                    <a id="add_btn" href=""><i class="fas fa-plus-circle"></i> Agregar</a>
+                </div>
+            </div>
+            <form action="/api/proveedor" method='POST'>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Centro de Costo</th>
+                            <th>Proveedor</th>
+                            <th>#DNI / RUC</th>
+                            <th>Dirección</th>
+                            <th>#Celular</th>
+                            <th>@Email</th>
+                            <th>Modificar / Borrar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- add table -->
+                        <%- include('include/_2_data_proveedores') %>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </main>
+    <!-- Main Site -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/js/2_nuestros_proveedores.js"></script>
+    <script>
+        // Función de carga de la página, indica que debe traer el Centro de costo almacenado previamente y asignarlo al link del botón "Agregar"
+        $(window).on("load", function() {
+            let storage = null; //inicializar variable de almacenamiento del CeCo
+            storage = window.localStorage.getItem('cc');
+            storage = JSON.parse(storage);
+            
+             console.log(storage);
+             console.log(window.localStorage.getItem('cc'));
+
+            (storage.selected_cc == null)? 
+            $("#add_btn").css('visibility', 'hidden') && $(".table").css('visibility', 'hidden') :
+            $("#add_btn").attr("href","/nuestros-proveedores-crear?centrocosto="+storage.selected_cc);
+        });
+    </script>
+</body>
+</html>
+
+
+

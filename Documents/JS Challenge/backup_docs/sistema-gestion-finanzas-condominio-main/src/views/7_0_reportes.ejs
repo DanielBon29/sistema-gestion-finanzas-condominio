@@ -1,0 +1,62 @@
+
+<!-- include header -->
+<%- include('include/_0_header') %>
+<!-- include header -->
+<link rel="stylesheet" href="css/general.css">
+<link rel="stylesheet" href="css/icon_collections.css">
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <nav>
+            <div class="container">
+                <div class="text-center">
+                    <a href="/home" class="nav-brand text-dark">Reportes</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Header -->
+    
+    <!-- Main Site -->
+    <main id="site-main">
+        <div class="container">
+            <div class="filter">
+                <a href="/home"><i class="fas fa-angle-double-left"></i> Menú</a>
+            </div>
+            <div class="collection">
+                <div class="collection-div">
+                    <a href="/reporte-morosidad?concepto=null&anio=null">
+                        <span class="collection-icon">
+                            <i class="fas fa-user-check"></i>
+                            <br>
+                            Morosidad Mensual                    
+                        </span>
+                    </a>
+                </div>
+                <div class="collection-div">
+                    <a href="/reporte-deudas">
+                        <span class="collection-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <br>
+                            Deudas por cobrar                    
+                        </span>
+                    </a>
+                </div>
+                <div class="collection-div">
+                    <a href="/reporte-flujo">
+                        <span class="collection-icon">
+                            <i class="fas fa-balance-scale"></i>
+                            <br>
+                            Flujo de Ingresos y Egresos                       
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </div>    
+    </main>
+    <!-- Main Site -->
+
+<!-- include footer -->
+    <%- include('include/_8_footer') %>
+<!-- include footer -->

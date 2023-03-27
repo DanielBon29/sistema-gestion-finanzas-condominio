@@ -1,0 +1,30 @@
+<%  egresos.sort((a,b) => (a.documento > b.documento) ? -1 : ((b.documento > a.documento) ? 1 : 0)) // data sorting by "documento" desc
+    const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Setiembre','Octubre','Noviembre','Diciembre'];
+
+    for(let i=0; i < egresos.length; i++) {
+        let mes_periodo = parseInt(egresos[i].periodo.substring(5,7));
+        let mes_registro = parseInt(egresos[i].fecharegistro.substring(3,5));
+
+        const path_root = `./docs/Egresos/${egresos[i].periodo.substring(0,4)}/${egresos[i].periodo.substring(5,7)}.${MESES[mes_periodo-1]}/${egresos[i].centrocosto}/`;
+        const filename = `${egresos[i].proveedor.replace("/","-")}_${egresos[i].periodo.substring(0,4)}_${egresos[i].periodo.substring(5,7)}_N${egresos[i].documento.substring(1,8)}.pdf`;
+        const filepath = path_root + filename;
+        %>
+    <tr id=<%=egresos[i].estado =='Válido'? 'reg_valido':'reg_anulado'%>>
+        <td><a href='<%=filepath%>' target="_blank"><i class="far fa-file-pdf"></i> <%=egresos[i].documento%></a></td>
+        <td><%=egresos[i].fecharegistro%></td>
+        <td><%=egresos[i].centrocosto%></td>
+        <td><%=egresos[i].proveedor%></td>
+        <td><%=egresos[i].periodo%></td>
+        <td><%=egresos[i].monto.toFixed(2)%></td>
+        <td><%=egresos[i].estado%></td>
+        <td>
+            <a href="/registro-egresos-modificar?id=<%=egresos[i]._id%>" class="btn border-shadow update">
+                <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <!-- Para eliminar registros - solo para ambiente de desarrollo o pruebas -->
+            <!-- <a class="btn border-shadow delete" data-id=<%=egresos[i]._id%>>
+                <span class="text-delete"><i class="fas fa-times"></i></span>
+            </a>  -->
+        </td>
+    </tr>
+    <% } %>

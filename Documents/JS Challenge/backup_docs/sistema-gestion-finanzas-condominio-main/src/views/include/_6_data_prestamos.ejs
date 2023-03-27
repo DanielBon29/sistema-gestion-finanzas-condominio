@@ -1,0 +1,24 @@
+<%  prestamos.sort((a,b) => (a.documento > b.documento) ? -1 : ((b.documento > a.documento) ? 1 : 0)) // data sorting by "documento" desc
+
+    for(let i=0; i < prestamos.length; i++) {
+        %>
+    <tr id=<%=prestamos[i].estado =='Válido'? 'reg_valido':'reg_anulado'%>>
+        <td><%=prestamos[i].documento%></a></td>
+        <td><%=prestamos[i].fecharegistro%></td>
+        <td><%=prestamos[i].vecino%></td>
+        <td><%=prestamos[i].concepto%></td>
+        <td><%=prestamos[i].periodo%></td>
+        <td><%=prestamos[i].montoprestado.toFixed(2)%></td>
+        <td><%=prestamos[i].montocobrado.toFixed(2)%></td>
+        <td><%=prestamos[i].montoprestado <= prestamos[i].montocobrado? 'CANCELADO' : 'POR COBRAR'%></td>
+        <td><%=prestamos[i].estado%></td>
+        <td>
+            <a href="/registro-prestamos-modificar?id=<%=prestamos[i]._id%>" class="btn border-shadow update">
+                <span class="text-update"><i class="fas fa-pencil-alt"></i></span>
+            </a>
+            <!-- <a class="btn border-shadow delete" data-id=<%=prestamos[i]._id%>>
+                <span class="text-delete"><i class="fas fa-times"></i></span>
+            </a>  -->
+        </td>
+    </tr>
+    <% } %>
