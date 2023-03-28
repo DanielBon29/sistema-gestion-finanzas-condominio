@@ -50,6 +50,10 @@ let schema = new mongoose.Schema({
         type:Date,
         default: Date.now
     },
+    estacionamiento:{
+        type:String,
+        required:true
+    },
 });
 
 const Ingresodb = mongoose.model('ingreso',schema);

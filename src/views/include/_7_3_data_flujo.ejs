@@ -1,6 +1,10 @@
 <%  let ingresos_validos = ingresos.filter(item => item.estado == "Válido");
     let egresos_validos = egresos.filter(item => item.estado == "Válido");
 
+    let eg_filt_cc= egresos_validos.filter(item => item.centrocosto == "Municipalidad Miraflores");
+
+    //console.log((eg_filt_cc[0] == null)? "vacio":"lleno");
+
     let ingresos_validos_sin_saldoant = ingresos_validos.filter(item => item.concepto != "Saldo Junta Anterior");
     let array_saldo_junta_anterior = ingresos_validos.filter(item => item.concepto == "Saldo Junta Anterior");
     let saldo_junta_anterior = array_saldo_junta_anterior.reduce((accum,item) => accum + item.monto,0);
@@ -49,7 +53,9 @@
             <% } %>
         </tr>
         <tr><td></td></tr>
-    <% for(let i=0; i < CONCEPTOS.length; i++) {%>
+    <% for(let i=0; i < CONCEPTOS.length; i++) {
+        let in_filt_concep_i= ingresos_validos_sin_saldoant.filter(item => item.concepto == CONCEPTOS[i]);
+        if (in_filt_concep_i[0] != null) {%>
         <tr>
             <td class='col1'id='ingreso'><%=CONCEPTOS[i]%></td>  
             <% for(let j=0; j < 12; j++) {
@@ -58,7 +64,7 @@
             <td id='ingreso'><%=suma_monto == 0 ? '-':suma_monto.toFixed(2) ;%></td>
             <% } %>
         </tr>
-    <% } %>
+    <% }} %>
         <tr id='t_ingresos'>
             <td class='col1'>Total Ingresos</td>  
             <% for(let j=0; j < 12; j++) {
@@ -67,7 +73,9 @@
             <% } %>
         </tr>
         <tr><td></td></tr>
-    <% for(let i=0; i < centrocostos.length; i++) {%>
+    <% for(let i=0; i < centrocostos.length; i++) {
+        let eg_filt_cc_i= egresos_validos.filter(item => item.centrocosto == centrocostos[i]);
+        if (eg_filt_cc_i[0] != null) {%>
         <tr>
             <td class='col1' id='egreso'><%=centrocostos[i]%></td>  
             <% for(let j=0; j < 12; j++) {
@@ -76,7 +84,7 @@
             <td id='egreso'><%=suma_monto == 0 ? '-':suma_monto.toFixed(2);%></td>
             <% } %>
         </tr>
-    <% } %>
+    <% }} %>
         <tr id='t_egresos'>
             <td class='col1'>Total Egresos</td>  
             <% for(let j=0; j < 12; j++) {

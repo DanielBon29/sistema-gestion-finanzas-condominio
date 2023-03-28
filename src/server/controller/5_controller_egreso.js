@@ -34,6 +34,7 @@ exports.create = (req, res) => {
     (egreso.nrcomprobante == "")? egreso.nrcomprobante = "S/N": egreso.nrcomprobante; //Si no hay nro de comprobante, entonces "S/N"
     egreso.fechacreacion = egreso.fechacreacion.setHours(egreso.fechacreacion.getHours() - 5); //fecha en hora Peru
     egreso.fechaactualizacion = egreso.fechaactualizacion.setHours(egreso.fechaactualizacion.getHours() - 5); //fecha en hora Peru
+    (egreso.estado == "Anulado")? egreso.monto = 0 : egreso.monto; //Si un registro se crea como "Anulado", el Monto ingresado se vuelve "0"
 
     //save egreso in the database
     egreso
@@ -109,6 +110,7 @@ exports.update = (req, res) => {
     req.body.fechaactualizacion = currentDateUTC.setHours(currentDateUTC.getHours() - 5); //To UTC -5 (Lima, Perú)
     // Formatting data before inserting to DB//
     (req.body.nrcomprobante == "")? req.body.nrcomprobante = "S/N": req.body.nrcomprobante; //Si no hay nro de comprobante, entonces "S/N"
+    (req.body.estado == "Anulado")? req.body.monto = 0 : req.body.monto; //Si un registro se modifica como "Anulado", el Monto ingresado se vuelve "0"
 
     Egresodb.findByIdAndUpdate(id,req.body)
         .then(data => {

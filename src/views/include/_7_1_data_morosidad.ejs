@@ -1,70 +1,173 @@
 <tbody>
-<%  let t_por_pagar = 0;    // Defining "total por pagar"
-
-    if(ingresos[0] == undefined){
-    } 
-    else {
-        let ingresos_validos = ingresos.filter(item => item.estado == "Válido");
-        let vecinos_validos = vecinos.filter(item => item.letra != "S/N");
-        let vecinos_est = vecinos_validos.filter(item => item.estacionamiento == "Sí");
-
-        let new_cuota_array;    // Defining array that will change depending of "concepto" selected
-
-        if(ingresos[0].concepto == 'Mantenimiento Mensual') {
-            vecinos_visibles = vecinos_validos;
-
-            // Function will show just necessary fields
-            function selectProps(show) {
-                const {periodo, cuotamantenimiento} = show;
-                return {periodo, cuotamantenimiento};
+    <%  let t_por_pagar = 0;    // Defining "total por pagar"
+    let concepto_actual; 
+    
+        if(ingresos[0] == undefined){
+        } 
+        else {
+            let ingresos_validos = ingresos.filter(item => item.estado == "Válido");
+            let ing_validos_resumen = ingresos_validos.map(item => ({vecino: item.vecino.substring(7,8), estacionamiento: item.estacionamiento, monto: item.monto}));
+            let vecinos_visibles;
+            let dif_array;
+            let totales;
+            let new_cuota_array;    // Defining array that will change depending of "concepto" selected
+    
+            concepto_actual = ingresos_validos[0].concepto;
+    
+            if (concepto_actual == "Estacionamiento Mensual") {
+                vecinos_visibles = ing_validos_resumen.reduce((acc, curr) => {
+                    const found = acc.find(item => item.vecino === curr.vecino && item.estacionamiento === curr.estacionamiento);
+                    if (found) {
+                      found.sum += curr.monto;
+                    } else {
+                      acc.push({ vecino: curr.vecino, estacionamiento: curr.estacionamiento, sum: curr.monto });
+                    }
+                    return acc;
+                  }, []);   
+    
+                cur_vecinos_est = vecinos.filter(item => item.estacionamiento != "-").map(item => ({vecino: item.letra, estacionamiento: item.estacionamiento}));
+    
+                dif_array = cur_vecinos_est.map(b => {
+                    let a = vecinos_visibles.find(a => a.vecino === b.vecino && a.estacionamiento === b.estacionamiento)
+                    if (a) {
+                      return { 
+                        vecino: a.vecino, 
+                        estacionamiento: a.estacionamiento, 
+                        sum: a.sum 
+                      } 
+                    } else {
+                       return {
+                        vecino: b.vecino, 
+                        estacionamiento: b.estacionamiento, 
+                        sum: 0    
+                       }            
+                    };
+                  });
+    
+                vecinos_visibles = vecinos_visibles.concat(dif_array);
+                vecinos_visibles = [...new Set(vecinos_visibles.map(JSON.stringify))].map(JSON.parse);
+    
+                totales = ing_validos_resumen.reduce((acc, curr) => {
+                    const found = acc.find(item => item.estacionamiento === curr.estacionamiento);
+                    if (found) {
+                      found.sum += curr.monto;
+                    } else {
+                      acc.push({ estacionamiento: curr.estacionamiento, sum: curr.monto });
+                    }
+                    return acc;
+                  }, []);  
+                             
+                vecinos_visibles = vecinos_visibles.sort((a,b) => (a.estacionamiento > b.estacionamiento)? 1 : -1);
+                totales = totales.sort((a,b) => (a.estacionamiento > b.estacionamiento)? 1 : -1);
+    
+                //Applying a counter for merging cells in HTML table
+                vecinos_visibles = vecinos_visibles.map((obj, index, arr) => {
+                    let count = 0;
+                    if (index === arr.findIndex(x => x.estacionamiento === obj.estacionamiento)) {
+                      count = arr.filter(x => x.estacionamiento === obj.estacionamiento).length;
+                    }
+                    return { ...obj, count };
+                  });
+    
+                  // Function will show just necessary fields
+                  function selectProps(show) {
+                      const {periodo, cuotaestacionamiento} = show;
+                      return {periodo, cuotaestacionamiento};
+                  };
+      
+                  // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
+                  new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotaestacionamiento});
+            }
+            else {
+                vecinos_visibles = vecinos.filter(item => item.letra != "S/N");
+                vecinos_visibles = vecinos_visibles.map(item => ({vecino: item.letra, estacionamiento: item.estacionamiento}));
+    
+                totales = ing_validos_resumen.reduce((acc, curr) => {
+                    const found = acc.find(item => item.vecino === curr.vecino);
+                    if (found) {
+                      found.sum += curr.monto;
+                    } else {
+                      acc.push({ vecino: curr.vecino, sum: curr.monto });
+                    }
+                    return acc;
+                  }, []); 
+    
+                //Applying a counter for merging cells in HTML table
+                vecinos_visibles = vecinos_visibles.map((obj, index, arr) => {
+                    let count = 0;
+                    if (index === arr.findIndex(x => x.vecino === obj.vecino)) {
+                      count = arr.filter(x => x.vecino === obj.vecino).length;
+                    }
+                    return { ...obj, count };
+                  }); 
+    
+                // Function will show just necessary fields
+                function selectProps(show) {
+                    const {periodo, cuotamantenimiento} = show;
+                    return {periodo, cuotamantenimiento};
+                };
+    
+                // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
+                new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotamantenimiento});
             };
-
-            // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
-            new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotamantenimiento});
-        } else{
-            vecinos_visibles = vecinos_est;
-
-            // Function will show just necessary fields
-            function selectProps(show) {
-                const {periodo, cuotaestacionamiento} = show;
-                return {periodo, cuotaestacionamiento};
-            };
-
-            // Function is applied to original array "cuotas", then map just "cuota" value without "concepto"
-            new_cuota_array = cuotas.map(selectProps).map((obj) => { return obj.cuotaestacionamiento});
-        };
-
-        console.log(ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == 6 && item.vecino.substring(7,8) == "D").map(item => item.monto).reduce((prev, curr) => prev + curr, 0));
-
-        for(let i=0; i < vecinos_visibles.length; i++) {
-            let pagado = 0;
-            let por_pagar = 0;%>
+    
+            //console.log(vecinos_visibles); 
+    
+            for(let i=0; i < vecinos_visibles.length; i++) {
+                let pagado = 0;
+                let por_pagar = 0;%>
+            <tr>
+                <% if (vecinos_visibles[i].count>0) {%>
+                <td id='estacionamiento' rowspan = "<%vecinos_visibles[i].count%>"><%=vecinos_visibles[i].estacionamiento%> </td>
+                <%} else {%>
+                <td id='estacionamiento'></td>
+                <%};%>
+                
+                <td id='letra'><%=vecinos_visibles[i].vecino%></td>
+    
+                <%
+                for(let j=0; j < 12; j++) {
+                    let ingreso_filtrado = ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == j+1 && item.vecino.substring(7,8) == vecinos_visibles[i].vecino).map(item => item.monto).reduce((prev, curr) => prev + curr, 0)
+    
+                    let monto_pagado = ingreso_filtrado==undefined? 0: ingreso_filtrado;
+                    por_pagar = por_pagar + new_cuota_array[j];
+                %>
+                <td id=<%=monto_pagado>=new_cuota_array[j]? 'mes_pagado':'mes_no_pagado'%> >
+                    <%=monto_pagado%>
+                </td>
+                <% } %>
+    
+                <% 
+                let pagado_val;
+                let por_pagar_val;
+    
+                if (concepto_actual == "Estacionamiento Mensual"){
+                    pagado_val = totales.filter(item => item.estacionamiento == vecinos_visibles[i].estacionamiento).map(item => item.sum.toFixed(2));
+                } else {
+                    pagado_val = totales.filter(item => item.vecino == vecinos_visibles[i].vecino).map(item => item.sum.toFixed(2));
+                };
+    
+                por_pagar_val = (por_pagar - pagado_val);
+                t_por_pagar = t_por_pagar + por_pagar_val;
+                %>
+    
+                <% if (vecinos_visibles[i].count>0) { %>
+                    <td class="pagado" rowspan = "<%vecinos_visibles[i].count%>"><%= (pagado_val == '')? '0.00' : pagado_val%> </td>
+                    <td class="por_pagar" rowspan = "<%vecinos_visibles[i].count%>"><%=por_pagar_val.toFixed(2)%></td>
+                    <%} else {%>
+                    <td class="pagado"></td>
+                    <td class="por_pagar"></td>
+                    <%};%>
+            </tr>
+        <% };
+        }; %>
+        <tr><td></td></tr>
+    </tbody>
+    <tfoot>
         <tr>
-            <td id='letra'><%=vecinos_visibles[i].letra%></td>
-
-            <%
-            for(let j=0; j < 12; j++) {
-                let ingreso_filtrado = ingresos_validos.filter(item => parseInt(item.periodo.substring(5,7)) == j+1 && item.vecino.substring(7,8) == vecinos_visibles[i].letra).map(item => item.monto).reduce((prev, curr) => prev + curr, 0)
-
-                let monto_pagado = ingreso_filtrado==undefined? 0: ingreso_filtrado;
-                pagado = pagado + monto_pagado;
-                por_pagar = por_pagar + new_cuota_array[j];
-            %>
-            <td id=<%=monto_pagado>=new_cuota_array[j]? 'mes_pagado':'mes_no_pagado'%> >
-                <%=monto_pagado%>
-            </td>
-            <% } %>
-            <td class="pagado"><%=pagado.toFixed(2)%></td>
-            <td class="por_pagar"><%=(por_pagar - pagado).toFixed(2)%></td>
+            <td class="pagado" colspan =<%=(concepto_actual == "Estacionamiento Mensual")? 15 : 14%>>Total por pagar</td>
+            <td class="por_pagar"><%=t_por_pagar.toFixed(2)%></td>
         </tr>
-    <%    t_por_pagar = t_por_pagar + por_pagar - pagado;
-        }
-    }; %>
-    <tr><td></td></tr>
-</tbody>
-<tfoot>
-    <tr>
-        <td class="pagado" colspan = 14>Total por pagar</td>
-        <td class="por_pagar"><%=t_por_pagar.toFixed(2)%></td>
-    </tr>
-</tfoot>
+    </tfoot>
+    
+    

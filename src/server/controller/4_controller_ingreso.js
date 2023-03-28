@@ -22,7 +22,8 @@ exports.create = (req, res) => {
         detalle: req.body.detalle,
         estado: req.body.estado,
         fechacreacion: req.body.fechacreacion,
-        fechaactualizacion: req.body.fechaactualizacion
+        fechaactualizacion: req.body.fechaactualizacion,
+        estacionamiento: req.body.estacionamiento
     });    
 
     // Formatting data before inserting to DB//
@@ -34,6 +35,7 @@ exports.create = (req, res) => {
     (ingreso.nroperacion == "")? ingreso.nroperacion = "S/N": ingreso.nroperacion; //Si no hay nro de operacion, entonces "S/N"
     ingreso.fechacreacion = ingreso.fechacreacion.setHours(ingreso.fechacreacion.getHours() - 5); //fecha en hora Peru
     ingreso.fechaactualizacion = ingreso.fechaactualizacion.setHours(ingreso.fechaactualizacion.getHours() - 5); //fecha en hora Peru
+    (ingreso.estado == "Anulado")? ingreso.monto = 0 : ingreso.monto; //Si un registro se crea como "Anulado", el Monto ingresado se vuelve "0"
 
     //save ingreso in the database
     ingreso
@@ -125,6 +127,7 @@ exports.update = (req, res) => {
     req.body.fechaactualizacion = currentDateUTC.setHours(currentDateUTC.getHours() - 5); //To UTC -5 (Lima, Perú)
     // Formatting data before inserting to DB//
     (req.body.nroperacion == "")? req.body.nroperacion = "S/N": req.body.nroperacion; //Si no hay nro de operacion, entonces "S/N"
+    (req.body.estado == "Anulado")? req.body.monto = 0 : req.body.monto; //Si un registro se modifica como "Anulado", el Monto ingresado se vuelve "0"
 
     Ingresodb.findByIdAndUpdate(id,req.body)
         .then(data => {

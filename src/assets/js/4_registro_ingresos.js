@@ -45,7 +45,7 @@ $("#excel_link").click( (x) => {
 });
 
 // Script para asignar el codigo correlativo del documento de ingreso conforme a la fecha de registro y a la cantidad de registros previos (segun el año) -->
-$("input[name=fecharegistro]").datepicker({
+$("input[name=fecharegistro]").datepicker({ 
     onSelect: function(dateText) {
         let año_reg = dateText.slice(-2);
 
@@ -62,6 +62,41 @@ $("input[name=fecharegistro]").datepicker({
         .catch(err => console.error(err));
     }
 });
+
+// Script para identificar el Estacionamiento asignado según el vecino seleccionado -->
+$("#combo_vecinos").change(function () {
+    let vec = ""; //inicializa vecino
+    $("#combo_vecinos option:selected" ).each(function() {
+        vec = $( this ).text(); //almacena el vecino seleccionado
+    });
+
+    vec = (vec.substring(8,9)== '"')? vec.substring(7,8) : vec.substring(7,10);
+
+        fetch('/api/users')
+        .then(response => response.json())
+        .then(data => {
+            let vecino_filtered = data.filter(item => item.letra == vec);
+            let est_selected = vecino_filtered[0].estacionamiento;
+
+            $("input[name=estacionamiento]").val(est_selected);
+        })
+        .catch(err => console.error(err));
+    }
+);
+
+// Script para mostrar u ocultar el campo de Estacionamiento, de acuerdo al concepto seleccionado -->
+$("#combo_conceptos").change(function () {
+    let display = "none"; //inicializa display
+    let concepto ;
+    $("#combo_conceptos option:selected" ).each(function() {
+        concepto = $( this ).text(); //almacena el concepto seleccionado
+    });
+
+    display = (concepto == "Estacionamiento Mensual")? "unset" : "none";
+    $("#est-optional-div").css("display",display);
+    }
+);
+
 
 // Scripts for Registro de Ingresos
 $(document).ready(function() {

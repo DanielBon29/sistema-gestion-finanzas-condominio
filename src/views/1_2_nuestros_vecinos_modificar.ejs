@@ -49,10 +49,15 @@
                         <input type="text" name="email2" value="<%=user.email2%>" placeholder="Ej: ejemplo@gmail.com">
                     </div>
                     <div class="form-group">
-                        <label for="estacionamiento" class="text-light">¿Paga estacionamiento?</label>
+                        <label for="estacionamiento" class="text-light">Estacionamiento Asignado</label>
                         <select name="estacionamiento" id="combo_estacionamiento">
-                            <option <%=user.estacionamiento=="Sí"? 'selected':''%>>Sí</option>
-                            <option <%=user.estacionamiento=="No"? 'selected':''%>>No</option>
+                            <option <%=user.estacionamiento=="-"? 'selected':''%>>-</option>
+                            <option <%=user.estacionamiento=="EST-1"? 'selected':''%>>EST-1</option>
+                            <option <%=user.estacionamiento=="EST-2"? 'selected':''%>>EST-2</option>
+                            <option <%=user.estacionamiento=="EST-3"? 'selected':''%>>EST-3</option>
+                            <option <%=user.estacionamiento=="EST-4"? 'selected':''%>>EST-4</option>
+                            <option <%=user.estacionamiento=="EST-5"? 'selected':''%>>EST-5</option>
+                            <option <%=user.estacionamiento=="EST-6"? 'selected':''%>>EST-6</option>
                         </select>
                     </div>
                     <div class="form-group">

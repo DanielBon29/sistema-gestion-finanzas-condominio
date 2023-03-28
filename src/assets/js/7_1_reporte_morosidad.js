@@ -22,6 +22,8 @@ $(window).on("load", function() {
 
     // console.log(storage);
 
+    (storage.selected_concepto == "Mantenimiento Mensual")? $(".table_mor #th_est, .table_mor #estacionamiento ").attr("hidden", true) : $(".table_mor #th_est, .table_mor #estacionamiento ").attr("hidden", false);
+
     (storage.selected_concepto == null || storage.selected_año == null)? 
     $("#content_mor").css('visibility', 'hidden'):
     (

@@ -26,6 +26,7 @@ table a{
 }
 
 .table_mor .thead-dark th,
+.table_mor #estacionamiento,
 .table_mor #letra,
 .table_flujo .thead-dark th{
     color: #fff;
